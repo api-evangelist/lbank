@@ -1,0 +1,133 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: LBank
+providerId: lbank
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Cryptocurrency
+  - Exchange
+  - Trading
+  - Market Data
+  - Finance
+description: >-
+  LBank does not charge for API access itself; all REST and WebSocket endpoints are available
+  to authenticated users at no direct cost. Revenue is captured through per-trade maker/taker
+  fees applied to executed spot orders. The default trading fee is 0.10% for both maker and
+  taker sides. VIP tiers with reduced fees are available for high-volume traders based on
+  30-day trading volume. API rate limits apply uniformly: 500 requests per 10 seconds for
+  order creation and cancellation, and 200 requests per 10 seconds for all other endpoints.
+sources:
+  - https://www.lbank.com/en-US/docs/
+  - https://github.com/LBank-exchange/lbank-official-api-docs
+plans:
+  - id: lbank-api-access
+    name: API Access (No Fee)
+    type: freemium
+    description: >-
+      Free programmatic access to LBank REST and WebSocket APIs for any registered and
+      authenticated user. Market data endpoints are fully public. Trading and account endpoints
+      require API key authentication. API connectivity itself is not billed.
+    entries:
+      - label: API connectivity (REST)
+        name: api_access_rest
+        type: flat
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Market data (public endpoints)
+        name: market_data_public
+        type: flat
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: WebSocket streams
+        name: websocket_streams
+        type: flat
+        metric: connection
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Spot Market REST API
+      - name: Spot Trading REST API
+      - name: Wallet REST API
+      - name: WebSocket Market Data API
+      - name: WebSocket Account and Order API
+  - id: lbank-spot-standard
+    name: Spot Trading - Standard
+    type: usage-based
+    description: >-
+      Default maker and taker commission for standard trading accounts. Fees are applied
+      per executed trade as a percentage of the trade value.
+    entries:
+      - label: Maker fee
+        name: spot_maker_standard
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.10%'
+        userMultiplied: false
+      - label: Taker fee
+        name: spot_taker_standard
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.10%'
+        userMultiplied: false
+    elements:
+      - name: Spot Trading
+      - name: ETF/Leveraged Token Trading
+  - id: lbank-spot-vip
+    name: Spot Trading - VIP Tiers
+    type: tiered
+    description: >-
+      Reduced maker/taker fee schedule for high-volume traders who qualify for VIP status
+      based on 30-day trading volume on the LBank platform. VIP tiers provide progressively
+      lower fees as volume thresholds increase.
+    entries:
+      - label: VIP 1 maker / taker
+        name: spot_vip1
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'reduced rates based on volume'
+        userMultiplied: false
+      - label: VIP (institutional / market maker)
+        name: spot_vip_institutional
+        type: tiered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'contact LBank for negotiated rates'
+        userMultiplied: false
+    elements:
+      - name: Reduced spot trading fees
+      - name: Institutional and market maker programs available
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

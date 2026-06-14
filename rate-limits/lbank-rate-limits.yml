@@ -1,0 +1,74 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: LBank
+providerId: lbank
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Cryptocurrency
+  - Exchange
+  - Trading
+  - Market Data
+  - Rate Limiting
+description: >-
+  LBank enforces per-endpoint request rate limits using a rolling 10-second window. Order creation
+  and cancellation endpoints are limited to 500 requests per 10 seconds. All other REST endpoints
+  are limited to 200 requests per 10 seconds. WebSocket connections require ping/pong heartbeat
+  responses within 60 seconds to prevent disconnection. Error code 10004 is returned when request
+  frequency limits are exceeded.
+sources:
+  - https://www.lbank.com/en-US/docs/
+  - https://github.com/LBank-exchange/lbank-official-api-docs
+responseCodes:
+  throttled: 10004
+limits:
+  - name: Order Create / Cancel (REST, per API key)
+    scope: account
+    metric: requests_per_10_seconds
+    limit: 500
+    window: 10s
+    notes: >-
+      Applies to POST /v2/supplement/create_order.do and POST /v2/supplement/cancel_order.do
+      and equivalent v1 order creation and cancellation endpoints. 500 requests maximum in any
+      rolling 10-second window per API key.
+  - name: General REST Endpoints (per API key / IP)
+    scope: account
+    metric: requests_per_10_seconds
+    limit: 200
+    window: 10s
+    notes: >-
+      All REST endpoints other than order creation and cancellation are limited to 200 requests
+      per 10-second rolling window. This covers market data, account info, order queries,
+      wallet operations, and all other endpoints.
+  - name: WebSocket Heartbeat
+    scope: connection
+    metric: ping_interval
+    limit: 60
+    window: 60s
+    notes: >-
+      The LBank WebSocket server sends periodic ping messages. Clients must respond with a
+      matching pong within 60 seconds. Failure to respond causes the server to close the
+      connection. Clients may also initiate pings to verify connection health.
+policies:
+  - name: Rolling window enforcement
+    description: >-
+      Rate limits are enforced against a rolling 10-second window, not a fixed-second boundary.
+      Clients should implement request pacing and backoff logic to avoid triggering error 10004.
+  - name: Error 10004 handling
+    description: >-
+      When the rate limit is exceeded, the API returns error code 10004 ("Request too frequent").
+      Clients should implement exponential backoff and reduce request frequency before retrying.
+  - name: WebSocket reconnect
+    description: >-
+      Clients must implement automatic WebSocket reconnection logic and re-subscribe to all
+      channels after reconnection since subscription state is not persisted across connections.
+  - name: Multiple base URLs for redundancy
+    description: >-
+      LBank provides three interchangeable REST base URLs (https://api.lbkex.com/,
+      https://www.lbkex.net/, https://api.lbank.info/) to allow failover and redundancy.
+      Rate limits apply per API key regardless of which base URL is used.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

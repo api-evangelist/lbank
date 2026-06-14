@@ -1,0 +1,180 @@
+aid: lbank
+name: LBank
+description: >-
+  LBank is a global cryptocurrency exchange providing REST and WebSocket APIs for spot trading,
+  ETF/leveraged token products, market data, order management, account information, and wallet
+  operations. The platform supports multiple signature schemes (RSA and HmacSHA256) and offers
+  public market data endpoints alongside authenticated trading and account management endpoints.
+url: https://www.lbank.com/en-US/docs/
+specificationVersion: '0.19'
+created: '2026-06-13'
+modified: '2026-06-13'
+kind: contract
+access: 3rd-Party
+position: Consuming
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Cryptocurrency
+  - Exchange
+  - Trading
+  - Market Data
+  - Finance
+  - Blockchain
+apis:
+  - aid: lbank:spot-market-rest-api
+    name: LBank Spot Market REST API
+    description: >-
+      Public REST endpoints providing real-time and historical market data for all LBank spot
+      trading pairs. Developers can retrieve 24-hour ticker data, order book depth, recent trade
+      history, K-line (candlestick) data, available trading pairs, ETF/leveraged token ticker data,
+      and current timestamp. All endpoints are unauthenticated and suitable for market data
+      aggregators, dashboards, and trading bots that need live pricing data.
+    humanURL: https://www.lbank.com/en-US/docs/
+    baseURL: https://api.lbkex.com
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Cryptocurrency
+      - Market Data
+      - Public
+      - REST
+      - Ticker
+      - Order Book
+    properties:
+      - type: Documentation
+        url: https://www.lbank.com/en-US/docs/
+  - aid: lbank:spot-trading-rest-api
+    name: LBank Spot Trading REST API
+    description: >-
+      Authenticated REST endpoints for spot order management and account operations on LBank.
+      Developers can place limit and market orders, cancel single or multiple orders, query order
+      status, retrieve open and historical orders, and access account balances. Order types include
+      limit, market, maker-only, IOC (immediate-or-cancel), and FOK (fill-or-kill). Authentication
+      uses RSA or HmacSHA256 signed requests with API key credentials obtained from the LBank
+      account settings.
+    humanURL: https://www.lbank.com/en-US/docs/
+    baseURL: https://api.lbkex.com
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Cryptocurrency
+      - Spot Trading
+      - Orders
+      - Authenticated
+      - REST
+    properties:
+      - type: Documentation
+        url: https://www.lbank.com/en-US/docs/
+  - aid: lbank:wallet-rest-api
+    name: LBank Wallet REST API
+    description: >-
+      Authenticated REST endpoints for managing cryptocurrency deposits and withdrawals on LBank.
+      Developers can query deposit history, initiate withdrawals, retrieve asset details including
+      available networks and minimum withdrawal amounts, fetch withdrawal fee rates, query withdrawal
+      history, and manage API key permissions. Supports multi-chain deposits and withdrawals across
+      all assets listed on the exchange.
+    humanURL: https://www.lbank.com/en-US/docs/
+    baseURL: https://api.lbkex.com
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Cryptocurrency
+      - Wallet
+      - Deposits
+      - Withdrawals
+      - Authenticated
+      - REST
+    properties:
+      - type: Documentation
+        url: https://www.lbank.com/en-US/docs/
+  - aid: lbank:websocket-market-api
+    name: LBank WebSocket Market Data API
+    description: >-
+      Real-time WebSocket API for streaming live market data from LBank. Clients can subscribe to
+      K-line (candlestick) data across multiple timeframes (1-minute to monthly), order book depth
+      updates at configurable levels (10, 50, or 100 price levels), recent trade streams, and full
+      market ticker updates. The connection uses ping/pong heartbeat to maintain session liveness.
+      Recommended for trading applications requiring low-latency market data without REST polling.
+    humanURL: https://www.lbank.com/en-US/docs/
+    baseURL: wss://www.lbkex.net
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Cryptocurrency
+      - Market Data
+      - Real-Time
+      - Streaming
+      - WebSocket
+    properties:
+      - type: Documentation
+        url: https://www.lbank.com/en-US/docs/
+  - aid: lbank:websocket-account-order-api
+    name: LBank WebSocket Account and Order API
+    description: >-
+      Authenticated WebSocket API for receiving real-time account balance and order status updates
+      from LBank. Clients can subscribe to asset balance change notifications and live order
+      execution updates including partial fills, full fills, and cancellations. Authentication uses
+      signed subscription requests. Suitable for trading bots and portfolio management applications
+      that need immediate notification of order state changes without polling the REST API.
+    humanURL: https://www.lbank.com/en-US/docs/
+    baseURL: wss://www.lbkex.net
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    tags:
+      - Cryptocurrency
+      - Account
+      - Orders
+      - Real-Time
+      - Streaming
+      - WebSocket
+      - Authenticated
+    properties:
+      - type: Documentation
+        url: https://www.lbank.com/en-US/docs/
+common:
+  - type: Website
+    url: https://www.lbank.com
+  - type: Portal
+    url: https://www.lbank.com/en-US/docs/
+  - type: Documentation
+    url: https://www.lbank.com/en-US/docs/
+  - type: GitHubOrganization
+    url: https://github.com/LBank-exchange
+  - type: GitHubRepository
+    url: https://github.com/LBank-exchange/lbank-official-api-docs
+  - type: TermsOfService
+    url: https://www.lbank.com/en-US/agreement/
+  - type: Plans
+    url: plans/lbank-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/lbank-rate-limits.yml
+  - type: FinOps
+    url: finops/lbank-finops.yml
+  - type: Features
+    data:
+      - name: Spot Trading
+        description: Place and manage limit, market, IOC, FOK, and maker-only orders across 500+ trading pairs.
+      - name: Market Data
+        description: Access real-time ticker, depth, K-line, and trade history for all listed pairs.
+      - name: ETF/Leveraged Tokens
+        description: Query 24-hour ticker data for leveraged token products via dedicated ETF endpoints.
+      - name: WebSocket Streams
+        description: Subscribe to live K-line, depth, trade, and ticker streams with sub-second latency.
+      - name: Account and Order Streaming
+        description: Receive real-time push notifications for order fills and account balance changes.
+      - name: Wallet Management
+        description: Manage multi-chain deposits and withdrawals with fee queries and history retrieval.
+      - name: RSA and HMAC Authentication
+        description: Supports both RSA asymmetric and HmacSHA256 symmetric signing for API requests.
+      - name: Multiple Base URLs
+        description: Three interchangeable REST base URLs for redundancy and regional access.
+  - type: UseCases
+    data:
+      - name: Algorithmic Trading
+        description: Build automated trading bots using authenticated REST and WebSocket APIs.
+      - name: Market Data Aggregation
+        description: Aggregate real-time pricing and order book data across LBank trading pairs.
+      - name: Portfolio Tracking
+        description: Monitor account balances and order history programmatically.
+      - name: Arbitrage
+        description: Exploit price discrepancies using real-time WebSocket streams and fast REST order placement.
+      - name: Exchange Integration
+        description: Integrate LBank liquidity into multi-exchange trading platforms using the CCXT library.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

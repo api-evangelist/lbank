@@ -1,0 +1,104 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: LBank
+providerId: lbank
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Cryptocurrency
+  - Exchange
+  - Trading
+description: >-
+  FOCUS-aligned FinOps for LBank: API connectivity is free; cost is incurred as per-transaction
+  maker/taker fees on executed spot trades. The standard rate is 0.10% per side. VIP tiers with
+  reduced rates are available for high-volume traders. ETF/leveraged token trading follows the
+  same fee structure. No API call fees or subscription costs are assessed.
+sources:
+  - https://www.lbank.com/en-US/docs/
+  - https://github.com/LBank-exchange/lbank-official-api-docs
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: LBank Digital Asset Exchange
+serviceCategory: Financial Services / Trading
+billingModel:
+  pricingCategory: Take Rate (Tiered)
+  billingFrequency: Continuous Settlement (per trade)
+  billingCurrency: USD equivalent (settled in traded asset)
+  chargeCategories:
+    - Usage
+    - Adjustment
+    - Refund
+focusColumns:
+  ServiceName: LBank
+  ServiceCategory: Financial Services
+  ProviderName: LBank
+  PublisherName: LBank Digital Asset Exchange
+  InvoiceIssuerName: LBank Digital Asset Exchange
+  BillingCurrency: USD equivalent
+  ChargeCategory: Usage
+meters:
+  - name: spot_trades
+    unit: transaction
+    aggregation: sum
+    dimensions:
+      - symbol
+      - side
+      - maker_or_taker
+  - name: spot_volume
+    unit: USD equivalent
+    aggregation: sum
+    dimensions:
+      - symbol
+      - side
+  - name: etf_trades
+    unit: transaction
+    aggregation: sum
+    dimensions:
+      - symbol
+      - side
+      - maker_or_taker
+  - name: withdrawal_fees
+    unit: asset_amount
+    aggregation: sum
+    dimensions:
+      - asset
+      - network
+  - name: api_requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - endpoint_group
+      - api_key
+principles:
+  - name: Visibility
+    description: >-
+      Pull trade and fee details via the transaction history and order history REST endpoints
+      to reconcile executed trades and associated fees. Monitor withdrawal fee charges via the
+      withdrawal history endpoint.
+  - name: Allocation
+    description: >-
+      Use separate API keys per trading strategy or team to attribute API usage and
+      resulting trades to specific cost centers. Query per-key order and transaction history
+      for cost allocation.
+  - name: Optimization
+    description: >-
+      Pursue VIP tier qualification for reduced maker/taker fees by increasing 30-day trading
+      volume. Prefer maker-side liquidity (limit orders that rest on the book) over taker-side
+      (market orders that remove liquidity) to minimize fees at the standard 0.10% rate.
+      Consolidate trading activity under a single account to maximize volume toward VIP tiers.
+  - name: Accountability
+    description: >-
+      Assign owners per trading strategy and monitor fee spend against trade PnL. Alert on
+      rate limit errors (code 10004) to prevent operational disruptions. Reconcile on-exchange
+      fee charges against expected rates to detect discrepancies.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
