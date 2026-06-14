@@ -1,0 +1,132 @@
+{
+  "name": "LBank API Vocabulary",
+  "description": "Domain vocabulary for LBank cryptocurrency exchange API concepts and terminology",
+  "version": "1.0.0",
+  "source": "https://www.lbank.com/en-US/docs/",
+  "terms": [
+    {
+      "term": "symbol",
+      "definition": "A trading pair identifier composed of base currency and quote currency separated by underscore (e.g. eth_btc means ETH priced in BTC).",
+      "examples": ["eth_btc", "btc_usdt", "zec_btc"]
+    },
+    {
+      "term": "api_key",
+      "definition": "A unique identifier issued to authenticated users for accessing private API endpoints. Must be paired with a request signature.",
+      "relatedTerms": ["sign", "RSA", "HmacSHA256"]
+    },
+    {
+      "term": "sign",
+      "definition": "A cryptographic signature computed over the request parameters to authenticate the caller. LBank supports RSA asymmetric signatures and HmacSHA256 symmetric signatures.",
+      "relatedTerms": ["api_key"]
+    },
+    {
+      "term": "kline",
+      "definition": "A K-line (candlestick) bar representing price movement over a defined time interval. Each bar contains [timestamp, open, high, low, close, volume].",
+      "synonyms": ["candlestick", "OHLCV"],
+      "examples": ["minute1", "hour1", "day1"]
+    },
+    {
+      "term": "depth",
+      "definition": "The order book showing outstanding bid and ask orders at various price levels. Used to assess market liquidity and price impact.",
+      "synonyms": ["order book"]
+    },
+    {
+      "term": "ticker",
+      "definition": "A summary of 24-hour trading statistics for a pair including latest price, high, low, volume, turnover, and change percentage.",
+      "relatedTerms": ["symbol", "turnover", "vol"]
+    },
+    {
+      "term": "turnover",
+      "definition": "Total traded value in the quote currency over a 24-hour period (sum of price × quantity for all trades).",
+      "synonyms": ["quote volume", "notional volume"]
+    },
+    {
+      "term": "vol",
+      "definition": "24-hour trading volume measured in base currency units.",
+      "synonyms": ["base volume", "trading volume"]
+    },
+    {
+      "term": "deal_amount",
+      "definition": "The quantity of an order that has already been filled (executed) in base currency.",
+      "synonyms": ["filled quantity", "executed quantity"]
+    },
+    {
+      "term": "avg_price",
+      "definition": "The volume-weighted average price at which an order was filled.",
+      "synonyms": ["average fill price", "VWAP"]
+    },
+    {
+      "term": "order_id",
+      "definition": "A UUID-format unique identifier assigned to each order by LBank at creation time.",
+      "examples": ["24f7ce27-af1d-4dca-a8c1-ef1cbeec1b23"]
+    },
+    {
+      "term": "order status",
+      "definition": "Numeric code indicating current order lifecycle state: -1=Cancelled, 0=Open, 1=Partially filled, 2=Fully filled, 3=Partially filled and cancelled, 4=Cancelling.",
+      "values": {
+        "-1": "Cancelled",
+        "0": "Open (on trading)",
+        "1": "Partially filled",
+        "2": "Fully filled",
+        "3": "Partially filled and cancelled",
+        "4": "Cancelling"
+      }
+    },
+    {
+      "term": "IOC",
+      "definition": "Immediate-Or-Cancel order type. Executes immediately for whatever quantity is available, then cancels the remainder.",
+      "fullName": "Immediate-Or-Cancel"
+    },
+    {
+      "term": "FOK",
+      "definition": "Fill-Or-Kill order type. Must be fully filled immediately or the entire order is cancelled.",
+      "fullName": "Fill-Or-Kill"
+    },
+    {
+      "term": "maker-only",
+      "definition": "A post-only order type that is cancelled if it would execute immediately as a taker, ensuring the order only adds liquidity to the order book.",
+      "synonyms": ["post-only"]
+    },
+    {
+      "term": "ETF",
+      "definition": "Leveraged token products traded on LBank that track a multiple of the underlying asset's daily return.",
+      "fullName": "Exchange Traded Fund",
+      "synonyms": ["leveraged token"]
+    },
+    {
+      "term": "pair",
+      "definition": "WebSocket subscription field specifying the trading pair for streaming data, concatenated with an underscore.",
+      "examples": ["eth_btc", "btc_usdt"]
+    },
+    {
+      "term": "kbar",
+      "definition": "WebSocket subscription type for streaming K-line (candlestick) data in real time.",
+      "relatedTerms": ["kline"]
+    },
+    {
+      "term": "assetCode",
+      "definition": "Short code identifying a cryptocurrency asset on the LBank platform.",
+      "examples": ["btc", "eth", "usdt"]
+    },
+    {
+      "term": "withdrawId",
+      "definition": "Unique numeric identifier assigned to each withdrawal request.",
+      "examples": [90082]
+    },
+    {
+      "term": "txHash",
+      "definition": "Blockchain transaction hash (TxID) for a completed withdrawal, used to track the transaction on-chain.",
+      "synonyms": ["transaction hash", "txid"]
+    },
+    {
+      "term": "RSA",
+      "definition": "Asymmetric cryptographic signature scheme supported by LBank for API request authentication using a public/private key pair.",
+      "fullName": "Rivest-Shamir-Adleman"
+    },
+    {
+      "term": "HmacSHA256",
+      "definition": "Symmetric cryptographic signature scheme supported by LBank using a shared secret key and SHA-256 hash function.",
+      "fullName": "Hash-based Message Authentication Code with SHA-256"
+    }
+  ]
+}

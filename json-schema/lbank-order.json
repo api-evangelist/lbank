@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.lbkex.com/schemas/order",
+  "title": "LBank Order",
+  "description": "Schema for LBank spot trading order records",
+  "type": "object",
+  "required": ["symbol", "order_id", "amount", "price", "type", "status", "create_time"],
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol",
+      "pattern": "^[a-z0-9]+_[a-z0-9]+$",
+      "examples": ["eth_btc"]
+    },
+    "order_id": {
+      "type": "string",
+      "description": "Unique order identifier (UUID format)",
+      "examples": ["24f7ce27-af1d-4dca-a8c1-ef1cbeec1b23"]
+    },
+    "amount": {
+      "type": "number",
+      "description": "Order quantity in base currency",
+      "minimum": 0,
+      "examples": [10.0]
+    },
+    "price": {
+      "type": "number",
+      "description": "Order price in quote currency",
+      "minimum": 0,
+      "examples": [5000.0]
+    },
+    "avg_price": {
+      "type": "number",
+      "description": "Average fill price",
+      "minimum": 0,
+      "examples": [4998.5]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["buy", "sell"],
+      "description": "Order direction"
+    },
+    "deal_amount": {
+      "type": "number",
+      "description": "Quantity already filled",
+      "minimum": 0,
+      "examples": [5.0]
+    },
+    "create_time": {
+      "type": "integer",
+      "description": "Order creation timestamp in milliseconds",
+      "examples": [1484289832081]
+    },
+    "status": {
+      "type": "integer",
+      "description": "Order status code",
+      "enum": [-1, 0, 1, 2, 3, 4],
+      "examples": [0]
+    }
+  }
+}

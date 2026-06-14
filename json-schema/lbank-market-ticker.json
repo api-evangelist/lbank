@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.lbkex.com/schemas/market-ticker",
+  "title": "LBank Market Ticker",
+  "description": "Schema for LBank 24-hour market ticker data",
+  "type": "object",
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Trading pair symbol (e.g. eth_btc)",
+      "pattern": "^[a-z0-9]+_[a-z0-9]+$",
+      "examples": ["eth_btc", "btc_usdt"]
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Timestamp of the latest transaction in milliseconds",
+      "examples": ["1410431279000"]
+    },
+    "ticker": {
+      "type": "object",
+      "description": "24-hour ticker statistics",
+      "required": ["change", "high", "latest", "low", "turnover", "vol"],
+      "properties": {
+        "change": {
+          "type": "string",
+          "description": "Price change percentage over 24 hours",
+          "examples": ["4.21"]
+        },
+        "high": {
+          "type": "string",
+          "description": "Highest price in the last 24 hours",
+          "examples": ["7722.58"]
+        },
+        "latest": {
+          "type": "string",
+          "description": "Latest transaction price",
+          "examples": ["7682.29"]
+        },
+        "low": {
+          "type": "string",
+          "description": "Lowest price in the last 24 hours",
+          "examples": ["7348.30"]
+        },
+        "turnover": {
+          "type": "string",
+          "description": "Total turnover in 24 hours (quote currency amount)",
+          "examples": ["0.00"]
+        },
+        "vol": {
+          "type": "string",
+          "description": "24-hour trading volume in base currency",
+          "examples": ["1316.3235"]
+        }
+      }
+    }
+  },
+  "required": ["timestamp", "ticker"]
+}

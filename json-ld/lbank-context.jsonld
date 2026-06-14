@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "lbank": "https://www.lbank.com/en-US/docs/#",
+    "openapi": "https://spec.openapis.org/oas/3.0/schema/2021-09-28#",
+    "symbol": "lbank:symbol",
+    "ticker": "lbank:ticker",
+    "kline": "lbank:kline",
+    "depth": "lbank:depth",
+    "order_id": "lbank:orderId",
+    "deal_amount": "lbank:dealAmount",
+    "avg_price": "lbank:avgPrice",
+    "assetCode": "lbank:assetCode",
+    "withdrawId": "lbank:withdrawId",
+    "txHash": "lbank:txHash",
+    "api_key": "lbank:apiKey",
+    "sign": "lbank:signature",
+    "turnover": "lbank:turnover",
+    "vol": "lbank:volume",
+    "high": "lbank:high",
+    "low": "lbank:low",
+    "latest": "lbank:latest",
+    "change": "lbank:change",
+    "create_time": "lbank:createTime",
+    "trade_fee": "lbank:tradeFee",
+    "tradeFeeRate": "lbank:tradeFeeRate"
+  },
+  "@graph": [
+    {
+      "@id": "https://api.lbkex.com",
+      "@type": "WebAPI",
+      "name": "LBank Exchange API",
+      "description": "REST and WebSocket APIs for spot trading, market data, wallet operations, and real-time streaming on the LBank cryptocurrency exchange.",
+      "url": "https://www.lbank.com/en-US/docs/",
+      "provider": {
+        "@type": "Organization",
+        "name": "LBank",
+        "url": "https://www.lbank.com",
+        "sameAs": "https://github.com/LBank-exchange"
+      },
+      "termsOfService": "https://www.lbank.com/en-US/agreement/",
+      "documentation": "https://www.lbank.com/en-US/docs/",
+      "availableChannel": [
+        {
+          "@type": "ServiceChannel",
+          "serviceUrl": "https://api.lbkex.com",
+          "name": "REST API Primary"
+        },
+        {
+          "@type": "ServiceChannel",
+          "serviceUrl": "wss://www.lbkex.net/ws/V2/",
+          "name": "WebSocket API"
+        }
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Spot Market Data",
+          "description": "Public unauthenticated endpoints for ticker, depth, trades, K-line, and currency pair data"
+        },
+        {
+          "@type": "Offer",
+          "name": "Spot Trading",
+          "description": "Authenticated endpoints for placing, cancelling, and querying spot orders"
+        },
+        {
+          "@type": "Offer",
+          "name": "Wallet Management",
+          "description": "Authenticated endpoints for deposits, withdrawals, and withdrawal history"
+        },
+        {
+          "@type": "Offer",
+          "name": "Real-Time Market Streams",
+          "description": "WebSocket subscriptions for K-line, order book depth, trades, and ticker updates"
+        },
+        {
+          "@type": "Offer",
+          "name": "Real-Time Account Streams",
+          "description": "Authenticated WebSocket subscriptions for order fills and balance change notifications"
+        }
+      ]
+    }
+  ]
+}

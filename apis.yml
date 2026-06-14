@@ -42,6 +42,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.lbank.com/en-US/docs/
+      - type: OpenAPI
+        url: openapi/lbank-spot-market-rest-api.json
   - aid: lbank:spot-trading-rest-api
     name: LBank Spot Trading REST API
     description: >-
@@ -63,6 +65,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.lbank.com/en-US/docs/
+      - type: OpenAPI
+        url: openapi/lbank-spot-trading-rest-api.json
   - aid: lbank:wallet-rest-api
     name: LBank Wallet REST API
     description: >-
@@ -84,6 +88,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.lbank.com/en-US/docs/
+      - type: OpenAPI
+        url: openapi/lbank-wallet-rest-api.json
   - aid: lbank:websocket-market-api
     name: LBank WebSocket Market Data API
     description: >-
@@ -145,6 +151,10 @@ common:
     url: rate-limits/lbank-rate-limits.yml
   - type: FinOps
     url: finops/lbank-finops.yml
+  - type: JSONLDContext
+    url: json-ld/lbank-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/lbank-vocabulary.json
   - type: Features
     data:
       - name: Spot Trading
