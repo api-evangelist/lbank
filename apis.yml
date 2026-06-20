@@ -12,7 +12,7 @@ modified: '2026-06-13'
 kind: contract
 access: 3rd-Party
 position: Consuming
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Cryptocurrency
   - Exchange
@@ -31,7 +31,7 @@ apis:
       aggregators, dashboards, and trading bots that need live pricing data.
     humanURL: https://www.lbank.com/en-US/docs/
     baseURL: https://api.lbkex.com
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cryptocurrency
       - Market Data
@@ -55,7 +55,7 @@ apis:
       account settings.
     humanURL: https://www.lbank.com/en-US/docs/
     baseURL: https://api.lbkex.com
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cryptocurrency
       - Spot Trading
@@ -77,7 +77,7 @@ apis:
       all assets listed on the exchange.
     humanURL: https://www.lbank.com/en-US/docs/
     baseURL: https://api.lbkex.com
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cryptocurrency
       - Wallet
@@ -100,7 +100,7 @@ apis:
       Recommended for trading applications requiring low-latency market data without REST polling.
     humanURL: https://www.lbank.com/en-US/docs/
     baseURL: wss://www.lbkex.net
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cryptocurrency
       - Market Data
@@ -120,7 +120,7 @@ apis:
       that need immediate notification of order state changes without polling the REST API.
     humanURL: https://www.lbank.com/en-US/docs/
     baseURL: wss://www.lbkex.net
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Cryptocurrency
       - Account
