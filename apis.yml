@@ -133,6 +133,10 @@ apis:
       - type: Documentation
         url: https://www.lbank.com/en-US/docs/
 common:
+  - type: DomainSecurity
+    url: security/lbank-domain-security.yml
+  - type: Authentication
+    url: authentication/lbank-authentication.yml
   - type: Website
     url: https://www.lbank.com
   - type: Portal

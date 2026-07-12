@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lbank-spot-trading-rest-api.json, openapi/lbank-wallet-rest-api.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: query
+  parameter: api_key
+  description: LBank API key with HMAC or RSA request signing
+  sources:
+  - openapi/lbank-spot-trading-rest-api.json
+  - openapi/lbank-wallet-rest-api.json
