@@ -133,6 +133,8 @@ apis:
       - type: Documentation
         url: https://www.lbank.com/en-US/docs/
 common:
+  - type: AgenticAccess
+    url: agentic-access/lbank-agentic-access.yml
   - type: DomainSecurity
     url: security/lbank-domain-security.yml
   - type: Authentication
