@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: LBank Spot Market REST Account API
+  description: Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.
+  version: 1.0.0
+  contact:
+    url: https://www.lbank.com/en-US/docs/
+  termsOfService: https://www.lbank.com/en-US/agreement/
+servers:
+- url: https://api.lbkex.com
+  description: LBank REST API (primary)
+- url: https://api.lbkex.net
+  description: LBank REST API (secondary)
+- url: https://api.lbank.info
+  description: LBank REST API (tertiary)
+tags:
+- name: Account
+  description: Account balance and transaction history
+paths:
+  /v1/user_info.do:
+    post:
+      operationId: getUserInfo
+      summary: Get user asset information
+      description: Returns the authenticated user's account balances including total assets, frozen amounts, and available balances per currency.
+      tags:
+      - Account
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: User asset information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoResponse'
+      security:
+      - ApiKeyAuth: []
+  /v1/transaction_history.do:
+    post:
+      operationId: getTransactionHistory
+      summary: Get past transaction history
+      description: Returns historical trade fill records for the authenticated user, optionally filtered by date range and pair.
+      tags:
+      - Account
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AuthRequest'
+              - type: object
+                required:
+                - symbol
+                properties:
+                  symbol:
+                    type: string
+                    description: Trading pair
+                  type:
+                    type: string
+                    enum:
+                    - buy
+                    - sell
+                    description: Order direction filter
+                  start_date:
+                    type: string
+                    description: Start date (yyyy-mm-dd, max today, default yesterday)
+                  end_date:
+                    type: string
+                    description: End date (yyyy-mm-dd, max today, default today). Max window is 2 days.
+                  from:
+                    type: string
+                    description: Initial transaction ID for pagination
+                  direct:
+                    type: string
+                    enum:
+                    - next
+                    - prev
+                    description: 'Query direction: next (ascending by time) or prev (descending)'
+                    default: next
+                  size:
+                    type: string
+                    description: Number of records (default 100)
+      responses:
+        '200':
+          description: Historical transaction records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionDetailResponse'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    TransactionRecord:
+      type: object
+      properties:
+        txUuid:
+          type: string
+          description: Trade ID
+        orderUuid:
+          type: string
+          description: Order ID
+        tradeType:
+          type: string
+          enum:
+          - buy
+          - sell
+        dealTime:
+          type: integer
+          description: Trade timestamp (milliseconds)
+        dealPrice:
+          type: number
+          description: Fill price
+        dealQuantity:
+          type: number
+          description: Fill quantity
+        dealVolumePrice:
+          type: number
+          description: Aggregated fill value (price * quantity)
+        tradeFee:
+          type: number
+          description: Transaction fee amount
+        tradeFeeRate:
+          type: number
+          description: Transaction fee rate
+    UserInfoResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        info:
+          type: object
+          properties:
+            freeze:
+              type: object
+              description: Frozen balances by currency
+              additionalProperties:
+                type: number
+            asset:
+              type: object
+              properties:
+                net:
+                  type: number
+                  description: Total net asset value
+            free:
+              type: object
+              description: Available balances by currency
+              additionalProperties:
+                type: number
+    TransactionDetailResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        transaction:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionRecord'
