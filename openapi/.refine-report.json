@@ -1,0 +1,20 @@
+{
+  "provider": "lbank",
+  "sources": [
+    "lbank-account-api-openapi.yml",
+    "lbank-market-data-api-openapi.yml",
+    "lbank-orders-api-openapi.yml",
+    "lbank-wallet-api-openapi.yml"
+  ],
+  "outputs": [
+    "lbank-account-api-openapi.yml",
+    "lbank-market-data-api-openapi.yml",
+    "lbank-orders-api-openapi.yml",
+    "lbank-wallet-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,380 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LBank Wallet REST API",
+    "description": "Authenticated REST endpoints for managing cryptocurrency deposits and withdrawals on LBank. IP binding is required for withdrawal operations.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.lbank.com/en-US/docs/"
+    },
+    "termsOfService": "https://www.lbank.com/en-US/agreement/"
+  },
+  "servers": [
+    {
+      "url": "https://api.lbkex.com",
+      "description": "LBank REST API (primary)"
+    },
+    {
+      "url": "https://api.lbkex.net",
+      "description": "LBank REST API (secondary)"
+    }
+  ],
+  "paths": {
+    "/v1/withdrawConfigs.do": {
+      "get": {
+        "operationId": "getWithdrawConfigs",
+        "summary": "Get withdrawal configurations",
+        "description": "Returns withdrawal configuration for all assets or a specific asset, including minimum amounts, fee, and whether withdrawal is currently available.",
+        "tags": ["Wallet"],
+        "parameters": [
+          {
+            "name": "assetCode",
+            "in": "query",
+            "required": false,
+            "description": "Asset code to filter (e.g. eth). Returns all assets if not specified.",
+            "schema": {
+              "type": "string",
+              "example": "eth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of withdrawal configurations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WithdrawConfig"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw.do": {
+      "post": {
+        "operationId": "withdraw",
+        "summary": "Submit a withdrawal",
+        "description": "Initiates a cryptocurrency withdrawal. IP binding is required. Supports both internal (email/mobile) and external (blockchain address) withdrawals.",
+        "tags": ["Wallet"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["account", "assetCode", "amount"],
+                    "properties": {
+                      "account": {
+                        "type": "string",
+                        "description": "Withdrawal address. For internal transfers, use email or mobile account."
+                      },
+                      "assetCode": {
+                        "type": "string",
+                        "description": "Asset code (e.g. btc, eth)"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "description": "Withdrawal amount (must be integer for NEO)"
+                      },
+                      "memo": {
+                        "type": "string",
+                        "description": "Required for BTS and DCT"
+                      },
+                      "mark": {
+                        "type": "string",
+                        "description": "User memo (max 255 characters)"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": ["1", "2"],
+                        "description": "Withdrawal type: 1=internal, 2=normal (blockchain)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Withdrawal submission result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/withdrawCancel.do": {
+      "post": {
+        "operationId": "cancelWithdraw",
+        "summary": "Cancel a withdrawal",
+        "description": "Revokes a pending withdrawal by withdrawal ID. IP binding is required.",
+        "tags": ["Wallet"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["withdrawId"],
+                    "properties": {
+                      "withdrawId": {
+                        "type": "string",
+                        "description": "Withdrawal ID to cancel"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Withdrawal cancellation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "withdrawId": {
+                      "type": "string",
+                      "description": "Cancelled withdrawal ID"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/withdraws.do": {
+      "post": {
+        "operationId": "getWithdrawalHistory",
+        "summary": "Get withdrawal history",
+        "description": "Returns paginated withdrawal records for a specific asset, filtered by status. IP binding is required.",
+        "tags": ["Wallet"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["assetCode", "status", "pageNo", "pageSize"],
+                    "properties": {
+                      "assetCode": {
+                        "type": "string",
+                        "description": "Asset code (e.g. btc)"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": ["0", "1", "2", "3", "4"],
+                        "description": "Withdrawal status filter: 0=All, 1=Applying, 2=Revoked, 3=Failed, 4=Completed"
+                      },
+                      "pageNo": {
+                        "type": "string",
+                        "description": "Page number (default 1)"
+                      },
+                      "pageSize": {
+                        "type": "string",
+                        "description": "Records per page (max 100, default 20)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated withdrawal history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WithdrawalHistoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "api_key",
+        "description": "LBank API key with HMAC or RSA request signing"
+      }
+    },
+    "schemas": {
+      "AuthRequest": {
+        "type": "object",
+        "required": ["api_key", "sign"],
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "User's API key"
+          },
+          "sign": {
+            "type": "string",
+            "description": "Request signature (RSA or HmacSHA256)"
+          }
+        }
+      },
+      "WithdrawConfig": {
+        "type": "object",
+        "properties": {
+          "assetCode": {
+            "type": "string",
+            "description": "Asset code (e.g. eth, btc)"
+          },
+          "min": {
+            "type": "string",
+            "description": "Minimum withdrawal amount"
+          },
+          "canWithDraw": {
+            "type": "boolean",
+            "description": "Whether withdrawal is currently available"
+          },
+          "fee": {
+            "type": "string",
+            "description": "Withdrawal fee amount"
+          }
+        }
+      },
+      "WithdrawResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "withdrawId": {
+            "type": "integer",
+            "description": "Withdrawal ID"
+          },
+          "fee": {
+            "type": "number",
+            "description": "Withdrawal fee charged"
+          }
+        }
+      },
+      "WithdrawalRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Withdrawal record ID"
+          },
+          "assetCode": {
+            "type": "string",
+            "description": "Asset code"
+          },
+          "address": {
+            "type": "string",
+            "description": "Withdrawal address"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Withdrawal amount"
+          },
+          "fee": {
+            "type": "number",
+            "description": "Withdrawal fee"
+          },
+          "time": {
+            "type": "integer",
+            "description": "Withdrawal timestamp (milliseconds)"
+          },
+          "txHash": {
+            "type": "string",
+            "description": "Blockchain transaction hash"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed"
+          }
+        }
+      },
+      "WithdrawalHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages"
+          },
+          "pageNo": {
+            "type": "integer",
+            "description": "Current page number"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Records per page"
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WithdrawalRecord"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Wallet",
+      "description": "Deposit and withdrawal management endpoints"
+    }
+  ]
+}

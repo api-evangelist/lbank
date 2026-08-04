@@ -1,0 +1,723 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LBank Spot Trading REST API",
+    "description": "Authenticated REST endpoints for spot order management and account operations on LBank. Supports RSA and HmacSHA256 signed requests.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.lbank.com/en-US/docs/"
+    },
+    "termsOfService": "https://www.lbank.com/en-US/agreement/"
+  },
+  "servers": [
+    {
+      "url": "https://api.lbkex.com",
+      "description": "LBank REST API (primary)"
+    },
+    {
+      "url": "https://api.lbkex.net",
+      "description": "LBank REST API (secondary)"
+    }
+  ],
+  "paths": {
+    "/v1/user_info.do": {
+      "post": {
+        "operationId": "getUserInfo",
+        "summary": "Get user asset information",
+        "description": "Returns the authenticated user's account balances including total assets, frozen amounts, and available balances per currency.",
+        "tags": ["Account"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User asset information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfoResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/create_order.do": {
+      "post": {
+        "operationId": "createOrder",
+        "summary": "Place a spot order",
+        "description": "Places a new buy or sell limit/market order on the spot market. Returns the order ID on success.",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "type", "price", "amount"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair (e.g. eth_btc)",
+                        "example": "eth_btc"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": ["buy", "sell", "buy_market", "sell_market", "buy_maker", "sell_maker", "buy_ioc", "sell_ioc", "buy_fok", "sell_fok"],
+                        "description": "Order type"
+                      },
+                      "price": {
+                        "type": "string",
+                        "description": "Order price (must be greater than 0)",
+                        "example": "5323.42"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "description": "Order quantity",
+                        "example": "3"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order placement result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/cancel_order.do": {
+      "post": {
+        "operationId": "cancelOrder",
+        "summary": "Cancel an order",
+        "description": "Cancels one or more open orders. For multiple orders, separate order IDs with commas (max 3 per request).",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "order_id"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair (e.g. eth_btc)"
+                      },
+                      "order_id": {
+                        "type": "string",
+                        "description": "Order ID(s). Use comma to join multiple orders (max 3)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cancellation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelOrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/orders_info.do": {
+      "post": {
+        "operationId": "getOrderInfo",
+        "summary": "Query order status",
+        "description": "Returns status and details for one or more orders by order ID. Comma-separate multiple order IDs (max 3).",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "order_id"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair"
+                      },
+                      "order_id": {
+                        "type": "string",
+                        "description": "Order ID(s). Comma-separated for multiple (max 3)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersInfoResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/orders_info_history.do": {
+      "post": {
+        "operationId": "getOrderHistory",
+        "summary": "Get order history",
+        "description": "Returns historical order records for a trading pair. Only records from the last 7 days are available.",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "current_page", "page_length"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair"
+                      },
+                      "current_page": {
+                        "type": "string",
+                        "description": "Current page number"
+                      },
+                      "page_length": {
+                        "type": "string",
+                        "description": "Records per page (max 200)"
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Filter by order status"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated order history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersHistoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/orders_info_no_deal.do": {
+      "post": {
+        "operationId": "getOpenOrders",
+        "summary": "Get open orders",
+        "description": "Returns all currently open (unfilled) orders for a trading pair.",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "current_page", "page_length"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair"
+                      },
+                      "current_page": {
+                        "type": "string",
+                        "description": "Current page number"
+                      },
+                      "page_length": {
+                        "type": "string",
+                        "description": "Records per page (max 200)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Open orders list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdersHistoryResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/order_transaction_detail.do": {
+      "post": {
+        "operationId": "getOrderTransactionDetail",
+        "summary": "Get order transaction details",
+        "description": "Returns detailed trade fill records for a specific order.",
+        "tags": ["Orders"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol", "order_id"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair"
+                      },
+                      "order_id": {
+                        "type": "string",
+                        "description": "Order ID"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order transaction details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDetailResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/transaction_history.do": {
+      "post": {
+        "operationId": "getTransactionHistory",
+        "summary": "Get past transaction history",
+        "description": "Returns historical trade fill records for the authenticated user, optionally filtered by date range and pair.",
+        "tags": ["Account"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AuthRequest"
+                  },
+                  {
+                    "type": "object",
+                    "required": ["symbol"],
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "Trading pair"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": ["buy", "sell"],
+                        "description": "Order direction filter"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "description": "Start date (yyyy-mm-dd, max today, default yesterday)"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "description": "End date (yyyy-mm-dd, max today, default today). Max window is 2 days."
+                      },
+                      "from": {
+                        "type": "string",
+                        "description": "Initial transaction ID for pagination"
+                      },
+                      "direct": {
+                        "type": "string",
+                        "enum": ["next", "prev"],
+                        "description": "Query direction: next (ascending by time) or prev (descending)",
+                        "default": "next"
+                      },
+                      "size": {
+                        "type": "string",
+                        "description": "Number of records (default 100)"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Historical transaction records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDetailResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "api_key",
+        "description": "LBank API key with HMAC or RSA request signing"
+      }
+    },
+    "schemas": {
+      "AuthRequest": {
+        "type": "object",
+        "required": ["api_key", "sign"],
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "description": "User's API key"
+          },
+          "sign": {
+            "type": "string",
+            "description": "Request signature (RSA or HmacSHA256)"
+          }
+        }
+      },
+      "UserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "info": {
+            "type": "object",
+            "properties": {
+              "freeze": {
+                "type": "object",
+                "description": "Frozen balances by currency",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "asset": {
+                "type": "object",
+                "properties": {
+                  "net": {
+                    "type": "number",
+                    "description": "Total net asset value"
+                  }
+                }
+              },
+              "free": {
+                "type": "object",
+                "description": "Available balances by currency",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateOrderResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "order_id": {
+            "type": "string",
+            "description": "Order ID"
+          }
+        }
+      },
+      "CancelOrderResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"],
+            "description": "Success/failure for single order"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "Order ID (single order)"
+          },
+          "success": {
+            "type": "string",
+            "description": "Comma-separated list of successfully cancelled order IDs (multiple orders)"
+          },
+          "error": {
+            "type": "string",
+            "description": "Comma-separated list of failed order IDs (multiple orders)"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Trading pair"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "Order ID"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Order quantity"
+          },
+          "price": {
+            "type": "number",
+            "description": "Order price"
+          },
+          "avg_price": {
+            "type": "number",
+            "description": "Average fill price"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["buy", "sell"],
+            "description": "Order direction"
+          },
+          "deal_amount": {
+            "type": "number",
+            "description": "Filled quantity"
+          },
+          "create_time": {
+            "type": "integer",
+            "description": "Order creation timestamp (milliseconds)"
+          },
+          "status": {
+            "type": "integer",
+            "description": "Order status: -1=Cancelled, 0=Open, 1=Partially filled, 2=Fully filled, 3=Partially filled and cancelled, 4=Cancelling"
+          }
+        }
+      },
+      "OrdersInfoResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order"
+            }
+          }
+        }
+      },
+      "OrdersHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order"
+            }
+          },
+          "current_page": {
+            "type": "string"
+          },
+          "page_length": {
+            "type": "string"
+          },
+          "total": {
+            "type": "string",
+            "description": "Total number of records"
+          }
+        }
+      },
+      "TransactionRecord": {
+        "type": "object",
+        "properties": {
+          "txUuid": {
+            "type": "string",
+            "description": "Trade ID"
+          },
+          "orderUuid": {
+            "type": "string",
+            "description": "Order ID"
+          },
+          "tradeType": {
+            "type": "string",
+            "enum": ["buy", "sell"]
+          },
+          "dealTime": {
+            "type": "integer",
+            "description": "Trade timestamp (milliseconds)"
+          },
+          "dealPrice": {
+            "type": "number",
+            "description": "Fill price"
+          },
+          "dealQuantity": {
+            "type": "number",
+            "description": "Fill quantity"
+          },
+          "dealVolumePrice": {
+            "type": "number",
+            "description": "Aggregated fill value (price * quantity)"
+          },
+          "tradeFee": {
+            "type": "number",
+            "description": "Transaction fee amount"
+          },
+          "tradeFeeRate": {
+            "type": "number",
+            "description": "Transaction fee rate"
+          }
+        }
+      },
+      "TransactionDetailResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          "transaction": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionRecord"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Account",
+      "description": "Account balance and transaction history"
+    },
+    {
+      "name": "Orders",
+      "description": "Order placement, cancellation, and query"
+    }
+  ]
+}

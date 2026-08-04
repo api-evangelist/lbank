@@ -1,0 +1,480 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LBank Spot Market REST API",
+    "description": "Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.lbank.com/en-US/docs/"
+    },
+    "termsOfService": "https://www.lbank.com/en-US/agreement/"
+  },
+  "servers": [
+    {
+      "url": "https://api.lbkex.com",
+      "description": "LBank REST API (primary)"
+    },
+    {
+      "url": "https://api.lbkex.net",
+      "description": "LBank REST API (secondary)"
+    },
+    {
+      "url": "https://api.lbank.info",
+      "description": "LBank REST API (tertiary)"
+    }
+  ],
+  "paths": {
+    "/v1/ticker.do": {
+      "get": {
+        "operationId": "getMarketTicker",
+        "summary": "Get 24-hour ticker data",
+        "description": "Returns 24-hour ticker statistics for one or all trading pairs. Set symbol to 'all' to retrieve data for all pairs.",
+        "tags": ["Market Data"],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "description": "Trading pair (e.g. eth_btc) or 'all' for all pairs",
+            "schema": {
+              "type": "string",
+              "example": "eth_btc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticker data for the requested symbol(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TickerResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TickerResponseItem"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/currencyPairs.do": {
+      "get": {
+        "operationId": "getCurrencyPairs",
+        "summary": "Get available trading pairs",
+        "description": "Returns a list of all available spot trading pairs on LBank.",
+        "tags": ["Market Data"],
+        "responses": {
+          "200": {
+            "description": "Array of available trading pair symbols",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["eth_btc", "zec_btc", "qtum_btc"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/depth.do": {
+      "get": {
+        "operationId": "getMarketDepth",
+        "summary": "Get order book depth",
+        "description": "Returns the current order book (asks and bids) for a trading pair at the specified depth.",
+        "tags": ["Market Data"],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "description": "Trading pair (e.g. eth_btc)",
+            "schema": {
+              "type": "string",
+              "example": "eth_btc"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "description": "Number of price levels to return (1-60, default 60)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60,
+              "default": 60
+            }
+          },
+          {
+            "name": "merge",
+            "in": "query",
+            "required": false,
+            "description": "Depth merge precision (0 or 1, default 0)",
+            "schema": {
+              "type": "integer",
+              "enum": [0, 1],
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order book depth data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DepthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/trades.do": {
+      "get": {
+        "operationId": "getHistoricalTrades",
+        "summary": "Get historical trades",
+        "description": "Returns recent trade records for a trading pair. Optionally filter by start timestamp.",
+        "tags": ["Market Data"],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "description": "Trading pair (e.g. eth_btc)",
+            "schema": {
+              "type": "string",
+              "example": "eth_btc"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "description": "Number of records to return (1-600)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 600
+            }
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "required": false,
+            "description": "Start transaction timestamp (milliseconds). Returns latest records if not provided.",
+            "schema": {
+              "type": "string",
+              "example": "1482311600000"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of historical trades",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trade"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/kline.do": {
+      "get": {
+        "operationId": "getKlineData",
+        "summary": "Get K-line (candlestick) data",
+        "description": "Returns historical K-line (OHLCV) candlestick data for a trading pair at the specified interval.",
+        "tags": ["Market Data"],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "description": "Trading pair (e.g. eth_btc)",
+            "schema": {
+              "type": "string",
+              "example": "eth_btc"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "description": "Number of K-line bars to return (1-2880)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2880
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "description": "K-line interval type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "minute1",
+                "minute5",
+                "minute15",
+                "minute30",
+                "hour1",
+                "hour4",
+                "hour8",
+                "hour12",
+                "day1",
+                "week1",
+                "month1"
+              ]
+            }
+          },
+          {
+            "name": "time",
+            "in": "query",
+            "required": true,
+            "description": "Start timestamp in seconds",
+            "schema": {
+              "type": "string",
+              "example": "1482311600"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of K-line bars. Each bar is [timestamp, open, high, low, close, volume]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 6,
+                    "maxItems": 6,
+                    "description": "[timestamp, open, high, low, close, volume]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/accuracy.do": {
+      "get": {
+        "operationId": "getTradingPairInfo",
+        "summary": "Get trading pair accuracy information",
+        "description": "Returns price and quantity accuracy (decimal places) for all trading pairs.",
+        "tags": ["Market Data"],
+        "responses": {
+          "200": {
+            "description": "List of trading pair accuracy configurations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TradingPairAccuracy"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/usdToCny.do": {
+      "get": {
+        "operationId": "getUsdToCnyRate",
+        "summary": "Get USD/CNY exchange rate",
+        "description": "Returns the current USD to CNY exchange rate. Updated daily at 00:00.",
+        "tags": ["Market Data"],
+        "responses": {
+          "200": {
+            "description": "USD to CNY exchange rate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "USD2CNY": {
+                      "type": "string",
+                      "description": "Exchange rate of USD to CNY",
+                      "example": "6.4801"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TickerData": {
+        "type": "object",
+        "properties": {
+          "change": {
+            "type": "string",
+            "description": "Price change percentage in 24 hours"
+          },
+          "high": {
+            "type": "string",
+            "description": "Highest price in 24 hours"
+          },
+          "latest": {
+            "type": "string",
+            "description": "Latest transaction price"
+          },
+          "low": {
+            "type": "string",
+            "description": "Lowest price in 24 hours"
+          },
+          "turnover": {
+            "type": "string",
+            "description": "Total turnover in 24 hours (quote currency)"
+          },
+          "vol": {
+            "type": "string",
+            "description": "24-hour trading volume (base currency)"
+          }
+        }
+      },
+      "TickerResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "Timestamp of latest transaction (milliseconds)"
+          },
+          "ticker": {
+            "$ref": "#/components/schemas/TickerData"
+          }
+        }
+      },
+      "TickerResponseItem": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Trading pair symbol"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Timestamp of latest transaction (milliseconds)"
+          },
+          "ticker": {
+            "$ref": "#/components/schemas/TickerData"
+          }
+        }
+      },
+      "DepthResponse": {
+        "type": "object",
+        "properties": {
+          "asks": {
+            "type": "array",
+            "description": "Asks (sellers) sorted by price ascending",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "description": "[price, quantity]"
+            }
+          },
+          "bids": {
+            "type": "array",
+            "description": "Bids (buyers) sorted by price descending",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "description": "[price, quantity]"
+            }
+          }
+        }
+      },
+      "Trade": {
+        "type": "object",
+        "properties": {
+          "date_ms": {
+            "type": "integer",
+            "description": "Transaction timestamp in milliseconds"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction volume"
+          },
+          "price": {
+            "type": "number",
+            "description": "Transaction price"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["buy", "sell"],
+            "description": "Trade direction"
+          },
+          "tid": {
+            "type": "string",
+            "description": "Transaction ID"
+          }
+        }
+      },
+      "TradingPairAccuracy": {
+        "type": "object",
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "description": "Trading pair symbol"
+          },
+          "priceAccuracy": {
+            "type": "string",
+            "description": "Number of decimal places for price"
+          },
+          "quantityAccuracy": {
+            "type": "string",
+            "description": "Number of decimal places for quantity"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Market Data",
+      "description": "Public market data endpoints for ticker, depth, trades, and K-line data"
+    }
+  ]
+}
