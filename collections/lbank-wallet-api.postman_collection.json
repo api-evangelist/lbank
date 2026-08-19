@@ -1,0 +1,538 @@
+{
+  "item": [
+    {
+      "id": "68a02a3d-5af9-419f-aeba-990b14694aed",
+      "name": "Wallet",
+      "description": {
+        "content": "Deposit and withdrawal management endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "967e7b41-dbb8-4d79-918f-662071263eaf",
+          "name": "Get withdrawal configurations",
+          "request": {
+            "name": "Get withdrawal configurations",
+            "description": {
+              "content": "Returns withdrawal configuration for all assets or a specific asset, including minimum amounts, fee, and whether withdrawal is currently available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "withdrawConfigs.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "assetCode",
+                  "value": "<string>",
+                  "description": "Asset code to filter (e.g. eth). Returns all assets if not specified."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93de816f-8f99-4053-8fc8-0ca001214fff",
+              "name": "List of withdrawal configurations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "withdrawConfigs.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "assetCode",
+                      "value": "eth"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"assetCode\": \"string\",\n    \"min\": \"string\",\n    \"canWithDraw\": true,\n    \"fee\": \"string\"\n  },\n  {\n    \"assetCode\": \"string\",\n    \"min\": \"string\",\n    \"canWithDraw\": false,\n    \"fee\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "513d4bcb-109e-4d9e-8aa2-47ed10dc16ac",
+          "name": "Submit a withdrawal",
+          "request": {
+            "name": "Submit a withdrawal",
+            "description": {
+              "content": "Initiates a cryptocurrency withdrawal. IP binding is required. Supports both internal (email/mobile) and external (blockchain address) withdrawals.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "withdraw.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assetCode",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "memo",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "mark",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b94b8a4a-3307-4f09-aff0-51bef819f314",
+              "name": "Withdrawal submission result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "withdraw.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "account",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "amount",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "assetCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "memo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "mark",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"withdrawId\": 3571,\n  \"fee\": 89.22224283990255\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2f633d7-31f9-4f62-bde0-3e7e7054dcc4",
+          "name": "Cancel a withdrawal",
+          "request": {
+            "name": "Cancel a withdrawal",
+            "description": {
+              "content": "Revokes a pending withdrawal by withdrawal ID. IP binding is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "withdrawCancel.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "withdrawId",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b6bbbfa1-cc28-439a-b20d-d89b310254ee",
+              "name": "Withdrawal cancellation result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "withdrawCancel.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "withdrawId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"withdrawId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "913765d9-b097-4261-892c-9b909ca3029a",
+          "name": "Get withdrawal history",
+          "request": {
+            "name": "Get withdrawal history",
+            "description": {
+              "content": "Returns paginated withdrawal records for a specific asset, filtered by status. IP binding is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "withdraws.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assetCode",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNo",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a26763b6-4c13-4ab2-82a6-96c47395bf19",
+              "name": "Paginated withdrawal history",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "withdraws.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "assetCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "pageNo",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "pageSize",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalPages\": 6327,\n  \"pageNo\": 3473,\n  \"pageSize\": 5379,\n  \"list\": [\n    {\n      \"id\": 8597,\n      \"assetCode\": \"string\",\n      \"address\": \"string\",\n      \"amount\": 6339.61550256322,\n      \"fee\": 5581.419295942908,\n      \"time\": 1428,\n      \"txHash\": \"string\",\n      \"status\": \"string\"\n    },\n    {\n      \"id\": 4870,\n      \"assetCode\": \"string\",\n      \"address\": \"string\",\n      \"amount\": 5186.506115311153,\n      \"fee\": 4329.258828041858,\n      \"time\": 3069,\n      \"txHash\": \"string\",\n      \"status\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lbkex.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed52ab38-1d07-4e77-8b3b-fce8fe3e6cc8",
+    "name": "LBank Spot Market REST Account Wallet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.",
+      "type": "text/plain"
+    }
+  }
+}

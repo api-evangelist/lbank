@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LBank Spot Market REST Account Orders API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Place a spot order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/create_order.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Places a new buy or sell limit/market order on the spot market. Returns the order ID on success."
+        },
+        {
+          "info": {
+            "name": "Cancel an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/cancel_order.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Cancels one or more open orders. For multiple orders, separate order IDs with commas (max 3 per request)."
+        },
+        {
+          "info": {
+            "name": "Query order status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/orders_info.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns status and details for one or more orders by order ID. Comma-separate multiple order IDs (max 3)."
+        },
+        {
+          "info": {
+            "name": "Get order history",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/orders_info_history.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns historical order records for a trading pair. Only records from the last 7 days are available."
+        },
+        {
+          "info": {
+            "name": "Get open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/orders_info_no_deal.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns all currently open (unfilled) orders for a trading pair."
+        },
+        {
+          "info": {
+            "name": "Get order transaction details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/order_transaction_detail.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns detailed trade fill records for a specific order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

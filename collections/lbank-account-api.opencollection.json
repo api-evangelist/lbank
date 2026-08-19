@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LBank Spot Market REST Account API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user asset information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/user_info.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns the authenticated user's account balances including total assets, frozen amounts, and available balances per currency."
+        },
+        {
+          "info": {
+            "name": "Get past transaction history",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/transaction_history.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns historical trade fill records for the authenticated user, optionally filtered by date range and pair."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

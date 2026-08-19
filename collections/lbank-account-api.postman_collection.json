@@ -1,0 +1,320 @@
+{
+  "item": [
+    {
+      "id": "f90093bd-1cd9-4361-a532-87a7691897bc",
+      "name": "Account",
+      "description": {
+        "content": "Account balance and transaction history",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4e4022ec-5ba6-4592-9eea-df129b19f489",
+          "name": "Get user asset information",
+          "request": {
+            "name": "Get user asset information",
+            "description": {
+              "content": "Returns the authenticated user's account balances including total assets, frozen amounts, and available balances per currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "user_info.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) User's API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>",
+                  "description": "(Required) Request signature (RSA or HmacSHA256)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e0db16bb-ef23-4c49-be5f-2e9529cb9b61",
+              "name": "User asset information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "user_info.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) User's API key",
+                        "type": "text/plain"
+                      },
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Request signature (RSA or HmacSHA256)",
+                        "type": "text/plain"
+                      },
+                      "key": "sign",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"info\": {\n    \"freeze\": {\n      \"key_0\": 7708.301642169105\n    },\n    \"asset\": {\n      \"net\": 9062.573802193516\n    },\n    \"free\": {\n      \"key_0\": 8066.813988467423,\n      \"key_1\": 757.1740724551101,\n      \"key_2\": 4206.17017269449\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3755a11-e633-4fd0-bcbe-601a1de6cb6e",
+          "name": "Get past transaction history",
+          "request": {
+            "name": "Get past transaction history",
+            "description": {
+              "content": "Returns historical trade fill records for the authenticated user, optionally filtered by date range and pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "transaction_history.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "direct",
+                  "value": "next"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5bb1e3fe-9804-466f-8548-b81a1843aaf8",
+              "name": "Historical transaction records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transaction_history.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "direct",
+                      "value": "next"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"transaction\": [\n    {\n      \"txUuid\": \"string\",\n      \"orderUuid\": \"string\",\n      \"tradeType\": \"buy\",\n      \"dealTime\": 379,\n      \"dealPrice\": 2951.4016557254017,\n      \"dealQuantity\": 25.010704227610425,\n      \"dealVolumePrice\": 2380.026547564713,\n      \"tradeFee\": 9863.483423956124,\n      \"tradeFeeRate\": 7823.655257354055\n    },\n    {\n      \"txUuid\": \"string\",\n      \"orderUuid\": \"string\",\n      \"tradeType\": \"sell\",\n      \"dealTime\": 4971,\n      \"dealPrice\": 7776.25487336301,\n      \"dealQuantity\": 5464.579915276544,\n      \"dealVolumePrice\": 4101.6649814499615,\n      \"tradeFee\": 5966.426429194854,\n      \"tradeFeeRate\": 7824.59799325979\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lbkex.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d152339b-a6ca-434a-85ec-45266f50e0bb",
+    "name": "LBank Spot Market REST Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.",
+      "type": "text/plain"
+    }
+  }
+}

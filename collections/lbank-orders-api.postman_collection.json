@@ -1,0 +1,826 @@
+{
+  "item": [
+    {
+      "id": "f3b7edff-6854-49f4-bf06-b052d4f0eed2",
+      "name": "Orders",
+      "description": {
+        "content": "Order placement, cancellation, and query",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50b9697e-63ba-4246-aa28-34d60f74cec6",
+          "name": "Place a spot order",
+          "request": {
+            "name": "Place a spot order",
+            "description": {
+              "content": "Places a new buy or sell limit/market order on the spot market. Returns the order ID on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "create_order.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "price",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa40cb81-58d3-457f-a648-f6f00c745ef9",
+              "name": "Order placement result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "create_order.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "amount",
+                      "value": "3"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "price",
+                      "value": "5323.42"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "eth_btc"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"order_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e6260ab-479b-4c55-9af2-5f6a8403e166",
+          "name": "Cancel an order",
+          "request": {
+            "name": "Cancel an order",
+            "description": {
+              "content": "Cancels one or more open orders. For multiple orders, separate order IDs with commas (max 3 per request).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "cancel_order.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e104856c-dbb3-4489-9de2-fde0e9a86904",
+              "name": "Cancellation result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "cancel_order.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"false\",\n  \"order_id\": \"string\",\n  \"success\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "072cc493-b642-4ae1-a290-6768066ac6ba",
+          "name": "Query order status",
+          "request": {
+            "name": "Query order status",
+            "description": {
+              "content": "Returns status and details for one or more orders by order ID. Comma-separate multiple order IDs (max 3).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders_info.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "702f966b-255d-4190-a699-1d6b594b9b16",
+              "name": "Order information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders_info.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"orders\": [\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 7002.32248625913,\n      \"price\": 1491.2445217106228,\n      \"avg_price\": 7504.373891415781,\n      \"type\": \"sell\",\n      \"deal_amount\": 9048.71164537142,\n      \"create_time\": 3335,\n      \"status\": 1024\n    },\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 9157.547758172243,\n      \"price\": 7266.08541566412,\n      \"avg_price\": 9936.153352645091,\n      \"type\": \"sell\",\n      \"deal_amount\": 8693.91510653867,\n      \"create_time\": 9776,\n      \"status\": 1651\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04f86dd5-523d-49e1-988b-7f8ab5b5e915",
+          "name": "Get order history",
+          "request": {
+            "name": "Get order history",
+            "description": {
+              "content": "Returns historical order records for a trading pair. Only records from the last 7 days are available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders_info_history.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_length",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f12937cd-e28d-4743-9367-d77470434f39",
+              "name": "Paginated order history",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders_info_history.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "current_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "page_length",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"false\",\n  \"orders\": [\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 5743.11698082896,\n      \"price\": 7924.532305525988,\n      \"avg_price\": 4305.048021514385,\n      \"type\": \"sell\",\n      \"deal_amount\": 9441.037480537141,\n      \"create_time\": 8660,\n      \"status\": 7452\n    },\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 2702.5587010735585,\n      \"price\": 4041.9297422426416,\n      \"avg_price\": 1969.0923954946315,\n      \"type\": \"sell\",\n      \"deal_amount\": 2636.8369811467765,\n      \"create_time\": 1830,\n      \"status\": 9094\n    }\n  ],\n  \"current_page\": \"string\",\n  \"page_length\": \"string\",\n  \"total\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8975c853-3d7b-47ac-80a2-789832dcc950",
+          "name": "Get open orders",
+          "request": {
+            "name": "Get open orders",
+            "description": {
+              "content": "Returns all currently open (unfilled) orders for a trading pair.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders_info_no_deal.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_length",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fdecac7-7874-44e4-9afe-d760fac6439e",
+              "name": "Open orders list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders_info_no_deal.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "current_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "page_length",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"orders\": [\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 5777.192843275694,\n      \"price\": 4849.414976237076,\n      \"avg_price\": 7246.684011484671,\n      \"type\": \"sell\",\n      \"deal_amount\": 408.42336967019446,\n      \"create_time\": 2206,\n      \"status\": 8762\n    },\n    {\n      \"symbol\": \"string\",\n      \"order_id\": \"string\",\n      \"amount\": 9420.462045582977,\n      \"price\": 9244.544831954076,\n      \"avg_price\": 7096.017980899356,\n      \"type\": \"sell\",\n      \"deal_amount\": 5369.850477140512,\n      \"create_time\": 5046,\n      \"status\": 8446\n    }\n  ],\n  \"current_page\": \"string\",\n  \"page_length\": \"string\",\n  \"total\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b01c746-df83-4e7c-af23-6c27323c5e26",
+          "name": "Get order transaction details",
+          "request": {
+            "name": "Get order transaction details",
+            "description": {
+              "content": "Returns detailed trade fill records for a specific order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "order_transaction_detail.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sign",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9485a77f-0ec6-4f94-bcb6-3e57467b7d61",
+              "name": "Order transaction details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_transaction_detail.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "sign",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbol",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": \"true\",\n  \"transaction\": [\n    {\n      \"txUuid\": \"string\",\n      \"orderUuid\": \"string\",\n      \"tradeType\": \"buy\",\n      \"dealTime\": 898,\n      \"dealPrice\": 2441.581638078606,\n      \"dealQuantity\": 2821.390099659018,\n      \"dealVolumePrice\": 5650.789566711596,\n      \"tradeFee\": 8191.3253859080005,\n      \"tradeFeeRate\": 5603.746933108573\n    },\n    {\n      \"txUuid\": \"string\",\n      \"orderUuid\": \"string\",\n      \"tradeType\": \"sell\",\n      \"dealTime\": 1143,\n      \"dealPrice\": 1248.2114935876687,\n      \"dealQuantity\": 5139.0501610717065,\n      \"dealVolumePrice\": 5675.221637952875,\n      \"tradeFee\": 3317.0950865083214,\n      \"tradeFeeRate\": 8690.004435630988\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lbkex.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "17850fc5-d35d-469e-af3a-8c2ea15fb0cc",
+    "name": "LBank Spot Market REST Account Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.",
+      "type": "text/plain"
+    }
+  }
+}

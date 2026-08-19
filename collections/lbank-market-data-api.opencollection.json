@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LBank Spot Market REST Account Market Data API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get 24-hour ticker data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/ticker.do",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Trading pair (e.g. eth_btc) or 'all' for all pairs"
+              }
+            ]
+          },
+          "docs": "Returns 24-hour ticker statistics for one or all trading pairs. Set symbol to 'all' to retrieve data for all pairs."
+        },
+        {
+          "info": {
+            "name": "Get available trading pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/currencyPairs.do"
+          },
+          "docs": "Returns a list of all available spot trading pairs on LBank."
+        },
+        {
+          "info": {
+            "name": "Get order book depth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/depth.do",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Trading pair (e.g. eth_btc)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of price levels to return (1-60, default 60)"
+              },
+              {
+                "name": "merge",
+                "value": "",
+                "type": "query",
+                "description": "Depth merge precision (0 or 1, default 0)"
+              }
+            ]
+          },
+          "docs": "Returns the current order book (asks and bids) for a trading pair at the specified depth."
+        },
+        {
+          "info": {
+            "name": "Get historical trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/trades.do",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Trading pair (e.g. eth_btc)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return (1-600)"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Start transaction timestamp (milliseconds). Returns latest records if not provided."
+              }
+            ]
+          },
+          "docs": "Returns recent trade records for a trading pair. Optionally filter by start timestamp."
+        },
+        {
+          "info": {
+            "name": "Get K-line (candlestick) data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/kline.do",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Trading pair (e.g. eth_btc)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of K-line bars to return (1-2880)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "K-line interval type"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Start timestamp in seconds"
+              }
+            ]
+          },
+          "docs": "Returns historical K-line (OHLCV) candlestick data for a trading pair at the specified interval."
+        },
+        {
+          "info": {
+            "name": "Get trading pair accuracy information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/accuracy.do"
+          },
+          "docs": "Returns price and quantity accuracy (decimal places) for all trading pairs."
+        },
+        {
+          "info": {
+            "name": "Get USD/CNY exchange rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/usdToCny.do"
+          },
+          "docs": "Returns the current USD to CNY exchange rate. Updated daily at 00:00."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

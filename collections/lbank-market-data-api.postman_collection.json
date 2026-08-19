@@ -1,0 +1,654 @@
+{
+  "item": [
+    {
+      "id": "d9bcfea6-bc5f-44f1-ae9d-ea78da358912",
+      "name": "Market Data",
+      "description": {
+        "content": "Public market data endpoints for ticker, depth, trades, and K-line data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "878c4e5c-b304-4420-93a1-88fa87525ff2",
+          "name": "Get 24-hour ticker data",
+          "request": {
+            "name": "Get 24-hour ticker data",
+            "description": {
+              "content": "Returns 24-hour ticker statistics for one or all trading pairs. Set symbol to 'all' to retrieve data for all pairs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "ticker.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair (e.g. eth_btc) or 'all' for all pairs"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bd8e5fe-98ec-4f61-83c3-5fc4736f4672",
+              "name": "Ticker data for the requested symbol(s)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "ticker.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "eth_btc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"string\",\n  \"ticker\": {\n    \"change\": \"string\",\n    \"high\": \"string\",\n    \"latest\": \"string\",\n    \"low\": \"string\",\n    \"turnover\": \"string\",\n    \"vol\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e081b5bc-9430-40de-b027-ae7417a8f515",
+          "name": "Get available trading pairs",
+          "request": {
+            "name": "Get available trading pairs",
+            "description": {
+              "content": "Returns a list of all available spot trading pairs on LBank.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "currencyPairs.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "849eea6e-3bac-4dfc-af0f-78ca55deaf77",
+              "name": "Array of available trading pair symbols",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "currencyPairs.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"eth_btc\",\n  \"zec_btc\",\n  \"qtum_btc\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0216e9cb-e848-4442-bf42-64a86500f2f1",
+          "name": "Get order book depth",
+          "request": {
+            "name": "Get order book depth",
+            "description": {
+              "content": "Returns the current order book (asks and bids) for a trading pair at the specified depth.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "depth.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair (e.g. eth_btc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "60",
+                  "description": "Number of price levels to return (1-60, default 60)"
+                },
+                {
+                  "disabled": false,
+                  "key": "merge",
+                  "value": "0",
+                  "description": "Depth merge precision (0 or 1, default 0)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0b8ca85-2645-4910-8505-6799563f44bf",
+              "name": "Order book depth data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "depth.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "eth_btc"
+                    },
+                    {
+                      "key": "size",
+                      "value": "60"
+                    },
+                    {
+                      "key": "merge",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"asks\": [\n    [\n      6613.542637448027,\n      675.306483196817\n    ],\n    [\n      9461.739004866165,\n      6729.774682971967\n    ]\n  ],\n  \"bids\": [\n    [\n      4956.4175837806015,\n      8961.121910990134\n    ],\n    [\n      3073.5350911856353,\n      8683.604736730756\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e803cf04-9768-4524-a6ce-6b29cf032677",
+          "name": "Get historical trades",
+          "request": {
+            "name": "Get historical trades",
+            "description": {
+              "content": "Returns recent trade records for a trading pair. Optionally filter by start timestamp.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "trades.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair (e.g. eth_btc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "(Required) Number of records to return (1-600)"
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "Start transaction timestamp (milliseconds). Returns latest records if not provided."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a2562e2-cfb6-46b1-b179-c1f70638e518",
+              "name": "List of historical trades",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "trades.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "eth_btc"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "1482311600000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"date_ms\": 330,\n    \"amount\": 58.697279109795055,\n    \"price\": 4795.083025449867,\n    \"type\": \"buy\",\n    \"tid\": \"string\"\n  },\n  {\n    \"date_ms\": 7176,\n    \"amount\": 9316.37783926551,\n    \"price\": 9791.08603717663,\n    \"type\": \"sell\",\n    \"tid\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "616141cc-3391-4808-aedd-031037b69d51",
+          "name": "Get K-line (candlestick) data",
+          "request": {
+            "name": "Get K-line (candlestick) data",
+            "description": {
+              "content": "Returns historical K-line (OHLCV) candlestick data for a trading pair at the specified interval.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "kline.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Trading pair (e.g. eth_btc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "(Required) Number of K-line bars to return (1-2880)"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) K-line interval type"
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "(Required) Start timestamp in seconds"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34f55430-b4e1-42c1-806a-042e60a93dc0",
+              "name": "Array of K-line bars. Each bar is [timestamp, open, high, low, close, volume]",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kline.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "eth_btc"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "1482311600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [\n    2914.745852610965,\n    1195.9948781634998,\n    8811.599782878964,\n    2270.0443286528184,\n    9631.607869964331,\n    8234.233767087675\n  ],\n  [\n    3568.5781223102717,\n    8012.096233765032,\n    450.05802841900146,\n    9021.451588383183,\n    6803.124578122276,\n    8846.55501572792\n  ]\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22acb959-c54b-4e6b-a2c5-cdf9d7488c76",
+          "name": "Get trading pair accuracy information",
+          "request": {
+            "name": "Get trading pair accuracy information",
+            "description": {
+              "content": "Returns price and quantity accuracy (decimal places) for all trading pairs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "accuracy.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0601a76-d6ed-4e2b-88b4-b7c4538b7cdf",
+              "name": "List of trading pair accuracy configurations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accuracy.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"string\",\n    \"priceAccuracy\": \"string\",\n    \"quantityAccuracy\": \"string\"\n  },\n  {\n    \"symbol\": \"string\",\n    \"priceAccuracy\": \"string\",\n    \"quantityAccuracy\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5694a803-bca4-4010-8ee5-ff8862682cb5",
+          "name": "Get USD/CNY exchange rate",
+          "request": {
+            "name": "Get USD/CNY exchange rate",
+            "description": {
+              "content": "Returns the current USD to CNY exchange rate. Updated daily at 00:00.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "usdToCny.do"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bbe40fa-f3f0-4361-a86c-fc8242051250",
+              "name": "USD to CNY exchange rate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "usdToCny.do"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"USD2CNY\": \"6.4801\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lbkex.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2e911bc-67d2-48bc-8931-d2b0b514b701",
+    "name": "LBank Spot Market REST Account Market Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.",
+      "type": "text/plain"
+    }
+  }
+}

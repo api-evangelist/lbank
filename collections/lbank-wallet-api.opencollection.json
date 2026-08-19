@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LBank Spot Market REST Account Wallet API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get withdrawal configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lbkex.com/v1/withdrawConfigs.do",
+            "params": [
+              {
+                "name": "assetCode",
+                "value": "",
+                "type": "query",
+                "description": "Asset code to filter (e.g. eth). Returns all assets if not specified."
+              }
+            ]
+          },
+          "docs": "Returns withdrawal configuration for all assets or a specific asset, including minimum amounts, fee, and whether withdrawal is currently available."
+        },
+        {
+          "info": {
+            "name": "Submit a withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/withdraw.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Initiates a cryptocurrency withdrawal. IP binding is required. Supports both internal (email/mobile) and external (blockchain address) withdrawals."
+        },
+        {
+          "info": {
+            "name": "Cancel a withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/withdrawCancel.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Revokes a pending withdrawal by withdrawal ID. IP binding is required."
+        },
+        {
+          "info": {
+            "name": "Get withdrawal history",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lbkex.com/v1/withdraws.do",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Returns paginated withdrawal records for a specific asset, filtered by status. IP binding is required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
