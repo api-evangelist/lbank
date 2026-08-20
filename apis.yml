@@ -68,6 +68,14 @@ apis:
   tags:
   - Cryptocurrency
   - Account
+  - Order
+  - Real-Time
+  - Streaming
+  - WebSocket
+  - Authenticated
+  tags_raw:
+  - Cryptocurrency
+  - Account
   - Orders
   - Real-Time
   - Streaming
@@ -106,6 +114,8 @@ apis:
   humanURL: https://www.lbank.com/en-US/docs/
   baseURL: https://api.lbkex.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -118,6 +128,8 @@ apis:
   humanURL: https://www.lbank.com/en-US/docs/
   baseURL: https://api.lbkex.com
   tags:
+  - Wallets
+  tags_raw:
   - Wallet
   properties:
   - type: OpenAPI
