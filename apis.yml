@@ -6,6 +6,19 @@ description: >-
   operations. The platform supports multiple signature schemes (RSA and HmacSHA256) and offers
   public market data endpoints alongside authenticated trading and account management endpoints.
 url: https://www.lbank.com/en-US/docs/
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
