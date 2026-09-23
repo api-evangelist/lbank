@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LBank Spot Market REST Account API
-  description: Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.
+  title: LBank Spot Trading REST Account API
+  description: Authenticated REST endpoints for spot order management and account operations on LBank. Supports RSA and HmacSHA256 signed requests.
   version: 1.0.0
   contact:
     url: https://www.lbank.com/en-US/docs/
@@ -11,8 +11,6 @@ servers:
   description: LBank REST API (primary)
 - url: https://api.lbkex.net
   description: LBank REST API (secondary)
-- url: https://api.lbank.info
-  description: LBank REST API (tertiary)
 tags:
 - name: Account
   description: Account balance and transaction history
@@ -96,18 +94,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
     TransactionRecord:
       type: object
       properties:
@@ -167,6 +153,18 @@ components:
               description: Available balances by currency
               additionalProperties:
                 type: number
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
     TransactionDetailResponse:
       type: object
       properties:
@@ -179,3 +177,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TransactionRecord'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: LBank API key with HMAC or RSA request signing

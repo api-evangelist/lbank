@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LBank Spot Market REST Account Wallet API
-  description: Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.
+  title: LBank REST Wallet API
+  description: Authenticated REST endpoints for managing cryptocurrency deposits and withdrawals on LBank. IP binding is required for withdrawal operations.
   version: 1.0.0
   contact:
     url: https://www.lbank.com/en-US/docs/
@@ -11,8 +11,6 @@ servers:
   description: LBank REST API (primary)
 - url: https://api.lbkex.net
   description: LBank REST API (secondary)
-- url: https://api.lbank.info
-  description: LBank REST API (tertiary)
 tags:
 - name: Wallet
   description: Deposit and withdrawal management endpoints
@@ -180,20 +178,33 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    WithdrawResponse:
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    WithdrawConfig:
       type: object
       properties:
-        result:
+        assetCode:
           type: string
-          enum:
-          - 'true'
-          - 'false'
-        withdrawId:
-          type: integer
-          description: Withdrawal ID
+          description: Asset code (e.g. eth, btc)
+        min:
+          type: string
+          description: Minimum withdrawal amount
+        canWithDraw:
+          type: boolean
+          description: Whether withdrawal is currently available
         fee:
-          type: number
-          description: Withdrawal fee charged
+          type: string
+          description: Withdrawal fee amount
     WithdrawalHistoryResponse:
       type: object
       properties:
@@ -210,21 +221,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/WithdrawalRecord'
-    WithdrawConfig:
+    WithdrawResponse:
       type: object
       properties:
-        assetCode:
+        result:
           type: string
-          description: Asset code (e.g. eth, btc)
-        min:
-          type: string
-          description: Minimum withdrawal amount
-        canWithDraw:
-          type: boolean
-          description: Whether withdrawal is currently available
+          enum:
+          - 'true'
+          - 'false'
+        withdrawId:
+          type: integer
+          description: Withdrawal ID
         fee:
-          type: string
-          description: Withdrawal fee amount
+          type: number
+          description: Withdrawal fee charged
     WithdrawalRecord:
       type: object
       properties:
@@ -252,15 +262,9 @@ components:
         status:
           type: string
           description: 'Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed'
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: LBank API key with HMAC or RSA request signing

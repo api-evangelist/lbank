@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LBank Spot Market REST Account Market Data API
+  title: LBank Spot Market REST Market Data API
   description: Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.
   version: 1.0.0
   contact:
@@ -250,18 +250,27 @@ components:
           description: Timestamp of latest transaction (milliseconds)
         ticker:
           $ref: '#/components/schemas/TickerData'
-    TradingPairAccuracy:
+    TickerData:
       type: object
       properties:
-        symbol:
+        change:
           type: string
-          description: Trading pair symbol
-        priceAccuracy:
+          description: Price change percentage in 24 hours
+        high:
           type: string
-          description: Number of decimal places for price
-        quantityAccuracy:
+          description: Highest price in 24 hours
+        latest:
           type: string
-          description: Number of decimal places for quantity
+          description: Latest transaction price
+        low:
+          type: string
+          description: Lowest price in 24 hours
+        turnover:
+          type: string
+          description: Total turnover in 24 hours (quote currency)
+        vol:
+          type: string
+          description: 24-hour trading volume (base currency)
     Trade:
       type: object
       properties:
@@ -283,6 +292,29 @@ components:
         tid:
           type: string
           description: Transaction ID
+    TradingPairAccuracy:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        priceAccuracy:
+          type: string
+          description: Number of decimal places for price
+        quantityAccuracy:
+          type: string
+          description: Number of decimal places for quantity
+    TickerResponseItem:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
     DepthResponse:
       type: object
       properties:
@@ -306,35 +338,3 @@ components:
             minItems: 2
             maxItems: 2
             description: '[price, quantity]'
-    TickerResponseItem:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
-        timestamp:
-          type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
-    TickerData:
-      type: object
-      properties:
-        change:
-          type: string
-          description: Price change percentage in 24 hours
-        high:
-          type: string
-          description: Highest price in 24 hours
-        latest:
-          type: string
-          description: Latest transaction price
-        low:
-          type: string
-          description: Lowest price in 24 hours
-        turnover:
-          type: string
-          description: Total turnover in 24 hours (quote currency)
-        vol:
-          type: string
-          description: 24-hour trading volume (base currency)

@@ -1,20 +1,30 @@
 {
   "provider": "lbank",
   "sources": [
-    "lbank-account-api-openapi.yml",
-    "lbank-market-data-api-openapi.yml",
-    "lbank-orders-api-openapi.yml",
-    "lbank-wallet-api-openapi.yml"
+    "_original/lbank-spot-market-rest-api.json",
+    "_original/lbank-spot-trading-rest-api.json",
+    "_original/lbank-wallet-rest-api.json"
   ],
   "outputs": [
-    "lbank-account-api-openapi.yml",
     "lbank-market-data-api-openapi.yml",
+    "lbank-account-api-openapi.yml",
     "lbank-orders-api-openapi.yml",
     "lbank-wallet-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lbank-spot-market-rest-api.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lbank-spot-trading-rest-api.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lbank-wallet-rest-api.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lbank-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lbank-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lbank-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lbank-wallet-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

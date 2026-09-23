@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LBank Spot Market REST Account Orders API
-  description: Public REST endpoints providing real-time and historical market data for all LBank spot trading pairs. All endpoints are unauthenticated and suitable for market data aggregators, dashboards, and trading bots.
+  title: LBank Spot Trading REST Orders API
+  description: Authenticated REST endpoints for spot order management and account operations on LBank. Supports RSA and HmacSHA256 signed requests.
   version: 1.0.0
   contact:
     url: https://www.lbank.com/en-US/docs/
@@ -11,8 +11,6 @@ servers:
   description: LBank REST API (primary)
 - url: https://api.lbkex.net
   description: LBank REST API (secondary)
-- url: https://api.lbank.info
-  description: LBank REST API (tertiary)
 tags:
 - name: Orders
   description: Order placement, cancellation, and query
@@ -288,7 +286,19 @@ components:
         tradeFeeRate:
           type: number
           description: Transaction fee rate
-    OrdersHistoryResponse:
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    OrdersInfoResponse:
       type: object
       properties:
         result:
@@ -300,13 +310,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
-        current_page:
-          type: string
-        page_length:
-          type: string
-        total:
-          type: string
-          description: Total number of records
     CancelOrderResponse:
       type: object
       properties:
@@ -325,6 +328,17 @@ components:
         error:
           type: string
           description: Comma-separated list of failed order IDs (multiple orders)
+    CreateOrderResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        order_id:
+          type: string
+          description: Order ID
     TransactionDetailResponse:
       type: object
       properties:
@@ -337,17 +351,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TransactionRecord'
-    CreateOrderResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        order_id:
-          type: string
-          description: Order ID
     Order:
       type: object
       properties:
@@ -381,19 +384,7 @@ components:
         status:
           type: integer
           description: 'Order status: -1=Cancelled, 0=Open, 1=Partially filled, 2=Fully filled, 3=Partially filled and cancelled, 4=Cancelling'
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
-    OrdersInfoResponse:
+    OrdersHistoryResponse:
       type: object
       properties:
         result:
@@ -405,3 +396,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
+        current_page:
+          type: string
+        page_length:
+          type: string
+        total:
+          type: string
+          description: Total number of records
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: LBank API key with HMAC or RSA request signing
