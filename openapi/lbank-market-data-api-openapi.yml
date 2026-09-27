@@ -242,9 +242,12 @@ paths:
                     example: '6.4801'
 components:
   schemas:
-    TickerResponse:
+    TickerResponseItem:
       type: object
       properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
         timestamp:
           type: string
           description: Timestamp of latest transaction (milliseconds)
@@ -292,24 +295,9 @@ components:
         tid:
           type: string
           description: Transaction ID
-    TradingPairAccuracy:
+    TickerResponse:
       type: object
       properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
-        priceAccuracy:
-          type: string
-          description: Number of decimal places for price
-        quantityAccuracy:
-          type: string
-          description: Number of decimal places for quantity
-    TickerResponseItem:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
         timestamp:
           type: string
           description: Timestamp of latest transaction (milliseconds)
@@ -338,3 +326,15 @@ components:
             minItems: 2
             maxItems: 2
             description: '[price, quantity]'
+    TradingPairAccuracy:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        priceAccuracy:
+          type: string
+          description: Number of decimal places for price
+        quantityAccuracy:
+          type: string
+          description: Number of decimal places for quantity

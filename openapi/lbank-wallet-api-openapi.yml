@@ -190,21 +190,33 @@ components:
         sign:
           type: string
           description: Request signature (RSA or HmacSHA256)
-    WithdrawConfig:
+    WithdrawalRecord:
       type: object
       properties:
+        id:
+          type: integer
+          description: Withdrawal record ID
         assetCode:
           type: string
-          description: Asset code (e.g. eth, btc)
-        min:
+          description: Asset code
+        address:
           type: string
-          description: Minimum withdrawal amount
-        canWithDraw:
-          type: boolean
-          description: Whether withdrawal is currently available
+          description: Withdrawal address
+        amount:
+          type: number
+          description: Withdrawal amount
         fee:
+          type: number
+          description: Withdrawal fee
+        time:
+          type: integer
+          description: Withdrawal timestamp (milliseconds)
+        txHash:
           type: string
-          description: Withdrawal fee amount
+          description: Blockchain transaction hash
+        status:
+          type: string
+          description: 'Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed'
     WithdrawalHistoryResponse:
       type: object
       properties:
@@ -235,33 +247,21 @@ components:
         fee:
           type: number
           description: Withdrawal fee charged
-    WithdrawalRecord:
+    WithdrawConfig:
       type: object
       properties:
-        id:
-          type: integer
-          description: Withdrawal record ID
         assetCode:
           type: string
-          description: Asset code
-        address:
+          description: Asset code (e.g. eth, btc)
+        min:
           type: string
-          description: Withdrawal address
-        amount:
-          type: number
-          description: Withdrawal amount
+          description: Minimum withdrawal amount
+        canWithDraw:
+          type: boolean
+          description: Whether withdrawal is currently available
         fee:
-          type: number
-          description: Withdrawal fee
-        time:
-          type: integer
-          description: Withdrawal timestamp (milliseconds)
-        txHash:
           type: string
-          description: Blockchain transaction hash
-        status:
-          type: string
-          description: 'Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed'
+          description: Withdrawal fee amount
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

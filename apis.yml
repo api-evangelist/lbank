@@ -7,17 +7,20 @@ description: >-
   public market data endpoints alongside authenticated trading and account management endpoints.
 url: https://www.lbank.com/en-US/docs/
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - lbank-exchange/lbank-official-api-docs
   open_source: unknown
   commercial: true
   callable_host: true
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid
