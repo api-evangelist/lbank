@@ -254,41 +254,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
-    CreateOrderResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        order_id:
-          type: string
-          description: Order ID
-    OrdersInfoResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
     OrdersHistoryResponse:
       type: object
       properties:
@@ -341,7 +306,7 @@ components:
         status:
           type: integer
           description: 'Order status: -1=Cancelled, 0=Open, 1=Partially filled, 2=Fully filled, 3=Partially filled and cancelled, 4=Cancelling'
-    CancelOrderResponse:
+    CreateOrderResponse:
       type: object
       properties:
         result:
@@ -349,16 +314,9 @@ components:
           enum:
           - 'true'
           - 'false'
-          description: Success/failure for single order
         order_id:
           type: string
-          description: Order ID (single order)
-        success:
-          type: string
-          description: Comma-separated list of successfully cancelled order IDs (multiple orders)
-        error:
-          type: string
-          description: Comma-separated list of failed order IDs (multiple orders)
+          description: Order ID
     TransactionRecord:
       type: object
       properties:
@@ -391,6 +349,30 @@ components:
         tradeFeeRate:
           type: number
           description: Transaction fee rate
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    OrdersInfoResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
     TransactionDetailResponse:
       type: object
       properties:
@@ -403,6 +385,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TransactionRecord'
+    CancelOrderResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          description: Success/failure for single order
+        order_id:
+          type: string
+          description: Order ID (single order)
+        success:
+          type: string
+          description: Comma-separated list of successfully cancelled order IDs (multiple orders)
+        error:
+          type: string
+          description: Comma-separated list of failed order IDs (multiple orders)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

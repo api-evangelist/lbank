@@ -178,18 +178,37 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    AuthRequest:
+    WithdrawalHistoryResponse:
       type: object
-      required:
-      - api_key
-      - sign
       properties:
-        api_key:
+        totalPages:
+          type: integer
+          description: Total number of pages
+        pageNo:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Records per page
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/WithdrawalRecord'
+    WithdrawConfig:
+      type: object
+      properties:
+        assetCode:
           type: string
-          description: User's API key
-        sign:
+          description: Asset code (e.g. eth, btc)
+        min:
           type: string
-          description: Request signature (RSA or HmacSHA256)
+          description: Minimum withdrawal amount
+        canWithDraw:
+          type: boolean
+          description: Whether withdrawal is currently available
+        fee:
+          type: string
+          description: Withdrawal fee amount
     WithdrawalRecord:
       type: object
       properties:
@@ -217,22 +236,18 @@ components:
         status:
           type: string
           description: 'Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed'
-    WithdrawalHistoryResponse:
+    AuthRequest:
       type: object
+      required:
+      - api_key
+      - sign
       properties:
-        totalPages:
-          type: integer
-          description: Total number of pages
-        pageNo:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Records per page
-        list:
-          type: array
-          items:
-            $ref: '#/components/schemas/WithdrawalRecord'
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
     WithdrawResponse:
       type: object
       properties:
@@ -247,21 +262,6 @@ components:
         fee:
           type: number
           description: Withdrawal fee charged
-    WithdrawConfig:
-      type: object
-      properties:
-        assetCode:
-          type: string
-          description: Asset code (e.g. eth, btc)
-        min:
-          type: string
-          description: Minimum withdrawal amount
-        canWithDraw:
-          type: boolean
-          description: Whether withdrawal is currently available
-        fee:
-          type: string
-          description: Withdrawal fee amount
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

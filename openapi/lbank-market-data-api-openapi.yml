@@ -242,38 +242,6 @@ paths:
                     example: '6.4801'
 components:
   schemas:
-    TickerResponseItem:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
-        timestamp:
-          type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
-    TickerData:
-      type: object
-      properties:
-        change:
-          type: string
-          description: Price change percentage in 24 hours
-        high:
-          type: string
-          description: Highest price in 24 hours
-        latest:
-          type: string
-          description: Latest transaction price
-        low:
-          type: string
-          description: Lowest price in 24 hours
-        turnover:
-          type: string
-          description: Total turnover in 24 hours (quote currency)
-        vol:
-          type: string
-          description: 24-hour trading volume (base currency)
     Trade:
       type: object
       properties:
@@ -295,14 +263,6 @@ components:
         tid:
           type: string
           description: Transaction ID
-    TickerResponse:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
     DepthResponse:
       type: object
       properties:
@@ -326,6 +286,46 @@ components:
             minItems: 2
             maxItems: 2
             description: '[price, quantity]'
+    TickerData:
+      type: object
+      properties:
+        change:
+          type: string
+          description: Price change percentage in 24 hours
+        high:
+          type: string
+          description: Highest price in 24 hours
+        latest:
+          type: string
+          description: Latest transaction price
+        low:
+          type: string
+          description: Lowest price in 24 hours
+        turnover:
+          type: string
+          description: Total turnover in 24 hours (quote currency)
+        vol:
+          type: string
+          description: 24-hour trading volume (base currency)
+    TickerResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
+    TickerResponseItem:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
     TradingPairAccuracy:
       type: object
       properties:
