@@ -94,6 +94,30 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    TransactionDetailResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        transaction:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionRecord'
     TransactionRecord:
       type: object
       properties:
@@ -126,18 +150,6 @@ components:
         tradeFeeRate:
           type: number
           description: Transaction fee rate
-    TransactionDetailResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        transaction:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionRecord'
     UserInfoResponse:
       type: object
       properties:
@@ -165,18 +177,6 @@ components:
               description: Available balances by currency
               additionalProperties:
                 type: number
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -242,27 +242,58 @@ paths:
                     example: '6.4801'
 components:
   schemas:
-    Trade:
+    TradingPairAccuracy:
       type: object
       properties:
-        date_ms:
-          type: integer
-          description: Transaction timestamp in milliseconds
-        amount:
-          type: number
-          description: Transaction volume
-        price:
-          type: number
-          description: Transaction price
-        type:
+        symbol:
           type: string
-          enum:
-          - buy
-          - sell
-          description: Trade direction
-        tid:
+          description: Trading pair symbol
+        priceAccuracy:
           type: string
-          description: Transaction ID
+          description: Number of decimal places for price
+        quantityAccuracy:
+          type: string
+          description: Number of decimal places for quantity
+    TickerResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
+    TickerData:
+      type: object
+      properties:
+        change:
+          type: string
+          description: Price change percentage in 24 hours
+        high:
+          type: string
+          description: Highest price in 24 hours
+        latest:
+          type: string
+          description: Latest transaction price
+        low:
+          type: string
+          description: Lowest price in 24 hours
+        turnover:
+          type: string
+          description: Total turnover in 24 hours (quote currency)
+        vol:
+          type: string
+          description: 24-hour trading volume (base currency)
+    TickerResponseItem:
+      type: object
+      properties:
+        symbol:
+          type: string
+          description: Trading pair symbol
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
     DepthResponse:
       type: object
       properties:
@@ -286,55 +317,24 @@ components:
             minItems: 2
             maxItems: 2
             description: '[price, quantity]'
-    TickerData:
+    Trade:
       type: object
       properties:
-        change:
+        date_ms:
+          type: integer
+          description: Transaction timestamp in milliseconds
+        amount:
+          type: number
+          description: Transaction volume
+        price:
+          type: number
+          description: Transaction price
+        type:
           type: string
-          description: Price change percentage in 24 hours
-        high:
+          enum:
+          - buy
+          - sell
+          description: Trade direction
+        tid:
           type: string
-          description: Highest price in 24 hours
-        latest:
-          type: string
-          description: Latest transaction price
-        low:
-          type: string
-          description: Lowest price in 24 hours
-        turnover:
-          type: string
-          description: Total turnover in 24 hours (quote currency)
-        vol:
-          type: string
-          description: 24-hour trading volume (base currency)
-    TickerResponse:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
-    TickerResponseItem:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
-        timestamp:
-          type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
-    TradingPairAccuracy:
-      type: object
-      properties:
-        symbol:
-          type: string
-          description: Trading pair symbol
-        priceAccuracy:
-          type: string
-          description: Number of decimal places for price
-        quantityAccuracy:
-          type: string
-          description: Number of decimal places for quantity
+          description: Transaction ID
