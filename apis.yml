@@ -38,7 +38,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-10-06'
 kind: contract
 access: 3rd-Party
 position: Consuming
@@ -154,6 +154,8 @@ apis:
   - type: Documentation
     url: https://www.lbank.com/en-US/docs/
 common:
+  - url: https://www.lbank.com/press
+    type: Blog
   - type: AgenticAccess
     url: agentic-access/lbank-agentic-access.yml
   - type: DomainSecurity
