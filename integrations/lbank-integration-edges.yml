@@ -24,7 +24,7 @@ edges:
   evidence: https://api.coingecko.com/api/v3/exchanges/lbank
   matched_by: domain:lbank.com
   coingecko_id: lbank
-  trust_score: 9
+  trust_score: 8
   detected_by: sweep-crypto.py
   first_seen: '2026-10-13'
 generated: '2026-10-13'
