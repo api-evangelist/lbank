@@ -242,21 +242,20 @@ paths:
                     example: '6.4801'
 components:
   schemas:
-    TradingPairAccuracy:
+    TickerResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Timestamp of latest transaction (milliseconds)
+        ticker:
+          $ref: '#/components/schemas/TickerData'
+    TickerResponseItem:
       type: object
       properties:
         symbol:
           type: string
           description: Trading pair symbol
-        priceAccuracy:
-          type: string
-          description: Number of decimal places for price
-        quantityAccuracy:
-          type: string
-          description: Number of decimal places for quantity
-    TickerResponse:
-      type: object
-      properties:
         timestamp:
           type: string
           description: Timestamp of latest transaction (milliseconds)
@@ -283,17 +282,18 @@ components:
         vol:
           type: string
           description: 24-hour trading volume (base currency)
-    TickerResponseItem:
+    TradingPairAccuracy:
       type: object
       properties:
         symbol:
           type: string
           description: Trading pair symbol
-        timestamp:
+        priceAccuracy:
           type: string
-          description: Timestamp of latest transaction (milliseconds)
-        ticker:
-          $ref: '#/components/schemas/TickerData'
+          description: Number of decimal places for price
+        quantityAccuracy:
+          type: string
+          description: Number of decimal places for quantity
     DepthResponse:
       type: object
       properties:

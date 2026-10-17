@@ -265,30 +265,6 @@ components:
         order_id:
           type: string
           description: Order ID
-    OrdersInfoResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
     CancelOrderResponse:
       type: object
       properties:
@@ -307,18 +283,6 @@ components:
         error:
           type: string
           description: Comma-separated list of failed order IDs (multiple orders)
-    TransactionDetailResponse:
-      type: object
-      properties:
-        result:
-          type: string
-          enum:
-          - 'true'
-          - 'false'
-        transaction:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionRecord'
     OrdersHistoryResponse:
       type: object
       properties:
@@ -403,6 +367,42 @@ components:
         status:
           type: integer
           description: 'Order status: -1=Cancelled, 0=Open, 1=Partially filled, 2=Fully filled, 3=Partially filled and cancelled, 4=Cancelling'
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    OrdersInfoResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    TransactionDetailResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        transaction:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionRecord'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

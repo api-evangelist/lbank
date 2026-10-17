@@ -94,19 +94,7 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
-    TransactionDetailResponse:
+    UserInfoResponse:
       type: object
       properties:
         result:
@@ -114,10 +102,25 @@ components:
           enum:
           - 'true'
           - 'false'
-        transaction:
-          type: array
-          items:
-            $ref: '#/components/schemas/TransactionRecord'
+        info:
+          type: object
+          properties:
+            freeze:
+              type: object
+              description: Frozen balances by currency
+              additionalProperties:
+                type: number
+            asset:
+              type: object
+              properties:
+                net:
+                  type: number
+                  description: Total net asset value
+            free:
+              type: object
+              description: Available balances by currency
+              additionalProperties:
+                type: number
     TransactionRecord:
       type: object
       properties:
@@ -150,7 +153,19 @@ components:
         tradeFeeRate:
           type: number
           description: Transaction fee rate
-    UserInfoResponse:
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
+    TransactionDetailResponse:
       type: object
       properties:
         result:
@@ -158,25 +173,10 @@ components:
           enum:
           - 'true'
           - 'false'
-        info:
-          type: object
-          properties:
-            freeze:
-              type: object
-              description: Frozen balances by currency
-              additionalProperties:
-                type: number
-            asset:
-              type: object
-              properties:
-                net:
-                  type: number
-                  description: Total net asset value
-            free:
-              type: object
-              description: Available balances by currency
-              additionalProperties:
-                type: number
+        transaction:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionRecord'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

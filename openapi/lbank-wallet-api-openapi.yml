@@ -178,33 +178,6 @@ paths:
       - ApiKeyAuth: []
 components:
   schemas:
-    AuthRequest:
-      type: object
-      required:
-      - api_key
-      - sign
-      properties:
-        api_key:
-          type: string
-          description: User's API key
-        sign:
-          type: string
-          description: Request signature (RSA or HmacSHA256)
-    WithdrawConfig:
-      type: object
-      properties:
-        assetCode:
-          type: string
-          description: Asset code (e.g. eth, btc)
-        min:
-          type: string
-          description: Minimum withdrawal amount
-        canWithDraw:
-          type: boolean
-          description: Whether withdrawal is currently available
-        fee:
-          type: string
-          description: Withdrawal fee amount
     WithdrawalHistoryResponse:
       type: object
       properties:
@@ -235,6 +208,21 @@ components:
         fee:
           type: number
           description: Withdrawal fee charged
+    WithdrawConfig:
+      type: object
+      properties:
+        assetCode:
+          type: string
+          description: Asset code (e.g. eth, btc)
+        min:
+          type: string
+          description: Minimum withdrawal amount
+        canWithDraw:
+          type: boolean
+          description: Whether withdrawal is currently available
+        fee:
+          type: string
+          description: Withdrawal fee amount
     WithdrawalRecord:
       type: object
       properties:
@@ -262,6 +250,18 @@ components:
         status:
           type: string
           description: 'Status: 1=Applying, 2=Revoked, 3=Failed, 4=Completed'
+    AuthRequest:
+      type: object
+      required:
+      - api_key
+      - sign
+      properties:
+        api_key:
+          type: string
+          description: User's API key
+        sign:
+          type: string
+          description: Request signature (RSA or HmacSHA256)
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
