@@ -64,36 +64,154 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-LBank is a global cryptocurrency exchange providing REST and WebSocket APIs for spot trading, ETF/leveraged token products, market data, order management, account information, and wallet operations.
+LBank is a global cryptocurrency exchange providing REST and WebSocket APIs for spot trading, ETF/leveraged token products, market data, order management, account information, and wallet operations. The platform supports multiple signature schemes (RSA and HmacSHA256) and offers public market data endpoints alongside authenticated trading and account management endpoints.
 
-## APIs
+**Areas:** Cryptocurrency · Exchange · Trading · Market Data · Finance · Blockchain
 
-- **Spot Market REST API** - Public endpoints for ticker, depth, K-line, and trade history data
-- **Spot Trading REST API** - Authenticated endpoints for order placement, cancellation, and queries
-- **Wallet REST API** - Authenticated endpoints for deposits, withdrawals, and asset management
-- **WebSocket Market Data API** - Real-time streaming for K-line, depth, trades, and ticker data
-- **WebSocket Account and Order API** - Real-time push notifications for order fills and balance changes
+## LBank on APIs.io
 
-## Base URLs
+Everything profiled for LBank is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lbank/](https://apis.io/providers/lbank/)** — or go straight to one of the APIs or properties below.
 
-- `https://api.lbkex.com/`
-- `https://www.lbkex.net/`
-- `https://api.lbank.info/`
+### APIs (6)
 
-## WebSocket
+- [LBank WebSocket Market Data API](https://apis.io/apis/lbank/websocket-market-api/) — Real-time WebSocket API for streaming live market data from LBank. Clients can subscribe to K-line (candlestick) data across multiple timeframes (1-minute…
+- [LBank WebSocket Account and Order API](https://apis.io/apis/lbank/websocket-account-order-api/) — Authenticated WebSocket API for receiving real-time account balance and order status updates from LBank. Clients can subscribe to asset balance change…
+- [LBank Account API](https://apis.io/apis/lbank/lbank-account-api/) — Account balance and transaction history
+- [LBank Market Data API](https://apis.io/apis/lbank/lbank-market-data-api/) — Public market data endpoints for ticker, depth, trades, and K-line data
+- [LBank Orders API](https://apis.io/apis/lbank/lbank-orders-api/) — Order placement, cancellation, and query
+- [LBank Wallet API](https://apis.io/apis/lbank/lbank-wallet-api/) — Deposit and withdrawal management endpoints
 
-- `wss://www.lbkex.net/ws/V2/`
+### Published properties
 
-## Authentication
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Supports RSA (asymmetric) and HmacSHA256 (symmetric) signature schemes. API keys are obtained from the LBank account settings panel.
+#### Agentic access (1)
 
-## Rate Limits
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Order create/cancel: 500 requests per 10 seconds
-- All other endpoints: 200 requests per 10 seconds
+- [Lbank Agentic Access](https://apis.io/agentic-access/lbank/lbank-agentic-access/)
 
-## Documentation
+#### JSON Schema (2)
 
-- [API Documentation](https://www.lbank.com/en-US/docs/)
-- [GitHub API Docs](https://github.com/LBank-exchange/lbank-official-api-docs)
+The data models the API reads and writes.
+
+- [LBank Market Ticker](https://apis.io/schemas/lbank/lbank-market-ticker/)
+- [LBank Order](https://apis.io/schemas/lbank/lbank-order/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Lbank Context](https://apis.io/jsonld/lbank/lbank-context/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Create Order Request](https://apis.io/examples/lbank/create-order-request/)
+- [Create Order Response](https://apis.io/examples/lbank/create-order-response/)
+- [Get Depth Response](https://apis.io/examples/lbank/get-depth-response/)
+- [Get Ticker Response](https://apis.io/examples/lbank/get-ticker-response/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [LBank Spot Market REST Account API](https://apis.io/collections/lbank/open-lbank-account-api/)
+- [LBank Spot Market REST Account Market Data API](https://apis.io/collections/lbank/open-lbank-market-data-api/)
+- [LBank Spot Market REST Account Orders API](https://apis.io/collections/lbank/open-lbank-orders-api/)
+- [LBank Spot Market REST Account Wallet API](https://apis.io/collections/lbank/open-lbank-wallet-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [LBank — jsonschema rules](https://apis.io/rules/lbank/lbank-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lbank Authentication](https://apis.io/security/lbank/lbank-authentication/)
+- [Lbank Domain Security](https://apis.io/security/lbank/lbank-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Lbank Plans Pricing](https://apis.io/plans/lbank/lbank-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Lbank Rate Limits](https://apis.io/rate-limits/lbank/lbank-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Lbank Finops](https://apis.io/finops/lbank/lbank-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.lbank.com)
+- [Documentation](https://www.lbank.com/en-US/docs/)
+- [Blog](https://www.lbank.com/press)
+- [Terms of service](https://www.lbank.com/en-US/agreement/)
+- [GitHub](https://github.com/LBank-exchange)
+
+## API Evangelist rating
+
+**Kin Score 32.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 52.4 |
+| Contract governance | 23.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 7.9 |
+
+**Agent readiness 22.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.3** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lbank/](https://apis.io/providers/lbank/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for LBank: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lbank/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
